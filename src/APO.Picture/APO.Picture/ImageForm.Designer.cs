@@ -35,26 +35,28 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(20, 59);
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(784, 720);
+            this.pictureBox1.Size = new System.Drawing.Size(1677, 836);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 21);
+            this.label1.Location = new System.Drawing.Point(16, 22);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(66, 25);
+            this.label1.Size = new System.Drawing.Size(70, 25);
             this.label1.TabIndex = 1;
             this.label1.Text = "Image";
             // 
             // ImageForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1537, 803);
+            this.ClientSize = new System.Drawing.Size(1677, 836);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
             this.Name = "ImageForm";
@@ -68,7 +70,7 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
+        public System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label1;
     }
 }

@@ -12,14 +12,31 @@ namespace APO.Picture
 {
     public partial class MainWindow : Form
     {
+        private ImageForm imageForm = new ImageForm();
+
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void exit(object sender, EventArgs e)
+        private void Exit(object sender, EventArgs e)
         {
             Application.Exit();
         }
+
+        private void openFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog dlg = new OpenFileDialog())
+            {
+                dlg.Title = "Open Image";
+                dlg.Filter = "Image Files (*.bmp;*.jpg;*.jpeg,*.png)|*.BMP;*.JPG;*.JPEG;*.PNG";
+
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    imageForm.pictureBox1.Image = 
+                }
+            }
+        }
+
     }
 }
