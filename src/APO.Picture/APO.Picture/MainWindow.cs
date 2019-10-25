@@ -33,7 +33,9 @@ namespace APO.Picture
 
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    imageForm.pictureBox1.Image = 
+                    imageForm.pictureBox1.Image = new Bitmap(dlg.FileName);
+                    imageForm.Show();
+
                 }
             }
         }

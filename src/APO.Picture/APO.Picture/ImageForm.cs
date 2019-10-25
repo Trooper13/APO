@@ -12,8 +12,11 @@ namespace APO.Picture
 {
     public partial class ImageForm : Form
     {
+        private Histogram histogram;
+
         public ImageForm()
         {
+            histogram = new Histogram(pictureBox1.Image)
             InitializeComponent();
         }
 
@@ -24,8 +27,12 @@ namespace APO.Picture
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-
+            histogram.Show();
         }
 
+        private void label1_Click(object sender, EventArgs e)
+        {
+            
+        }
     }
 }
