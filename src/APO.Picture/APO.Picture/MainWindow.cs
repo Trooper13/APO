@@ -12,8 +12,6 @@ namespace APO.Picture
 {
     public partial class MainWindow : Form
     {
-        private ImageForm imageForm = new ImageForm();
-
         public MainWindow()
         {
             InitializeComponent();
@@ -26,18 +24,28 @@ namespace APO.Picture
 
         private void openFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (OpenFileDialog dlg = new OpenFileDialog())
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                dlg.Title = "Open Image";
-                dlg.Filter = "Image Files (*.bmp;*.jpg;*.jpeg,*.png)|*.BMP;*.JPG;*.JPEG;*.PNG";
+                openFileDialog.Title = "Open Image";
+                openFileDialog.Filter = "Image Files (*.bmp)|*.BMP";
 
-                if (dlg.ShowDialog() == DialogResult.OK)
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    imageForm.pictureBox1.Image = new Bitmap(dlg.FileName);
-                    imageForm.Show();
-
+                    OpenImage(openFileDialog.FileName);
                 }
+
+                Cursor = Cursors.Default;
             }
+        }
+
+        public void OpenImage(string file)
+        {
+            ImageForm imageForm = new ImageForm(file)
+            {
+                MdiParent = this
+            };
+
+            imageForm.Show();
         }
 
     }
