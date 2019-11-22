@@ -1,4 +1,5 @@
-﻿using System;
+﻿using APO.Picture.Extensions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -48,5 +49,38 @@ namespace APO.Picture
             imageForm.Show();
         }
 
+        public void CopyImageForm(ImageForm form, Bitmap bitmap)
+        {
+            int copyId = ++form.CopyId;
+            foreach (Form child in MdiChildren)
+            {
+                if (child is ImageForm imageForm)
+                {
+                    if (imageForm.ImagePath.Contains(form.ImagePath))
+                    {
+                        imageForm.CopyId = copyId;
+                    }
+                }
+            }
+            ImageForm copyForm = new ImageForm(form, bitmap)
+            {
+                MdiParent = this
+            };
+            // TODO: do zrobienia zachowanie aktywności "SAVE AS" po otwarciu zdjęcia
+            //OnImageOpen();
+            copyForm.Show();
+        }
+
+        private void rozciaganieToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild is ImageForm imageForm)
+            {
+                CopyImageForm(imageForm, Histogram.Stretch(imageForm.CurrentImage, imageForm.GreyHistogramArray, imageForm.RedHistogramArray, imageForm.GreenHistogramArray, imageForm.BlueHistogramArray));
+            }
+            else
+            {
+                MessageBox.Show("Wybierz inną formatkę");
+            }
+        }
     }
 }

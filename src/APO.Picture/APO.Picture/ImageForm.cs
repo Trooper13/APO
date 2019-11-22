@@ -18,7 +18,15 @@ namespace APO.Picture
         private Histogram histogram;
         public string ImagePath { get; set; }
         public Bitmap CurrentImage { get; set; }
-        public int[] HistogramArray { get; set; }
+        public int[] GreyHistogramArray { get; set; }
+        public int[] RedHistogramArray { get; set; }
+        public int[] GreenHistogramArray { get; set; }
+        public int[] BlueHistogramArray { get; set; }
+        public int CopyId { get; set; } = 0;
+        public string TitleText { get; set; } = "";
+
+        //TODO: Do zrobienie przekazanie wszystkich tablic na raz
+        //public int[] AllHistogramArray { get; set; }
 
         public ImageForm()
         {
@@ -37,17 +45,29 @@ namespace APO.Picture
 
         private void DrawImageHistogram(Bitmap bitmap)
         {
-            if (bitmap.PixelFormat == PixelFormat.Format16bppGrayScale)
-            {
-                HistogramArray = new Histogram(bitmap).Levels;
-                Histogram.Draw(HistogramArray, histogramViewGrey);
-            }
+            GreyHistogramArray = new Histogram(bitmap, "Grey").Levels;
+            RedHistogramArray = new Histogram(bitmap, "R").Levels;
+            GreenHistogramArray = new Histogram(bitmap, "G").Levels;
+            BlueHistogramArray = new Histogram(bitmap, "B").Levels;
+            
+            Histogram.Draw(GreyHistogramArray, histogramViewGrey);
+            Histogram.Draw(RedHistogramArray, histogramViewRed);
+            Histogram.Draw(GreenHistogramArray, histogramViewGreen);
+            Histogram.Draw(BlueHistogramArray, histogramViewBlue);
 
-            if (bitmap.PixelFormat == PixelFormat.Format24bppRgb)
-            {
-                HistogramArray = new Histogram(bitmap).Levels;
-                Histogram.Draw(HistogramArray, histogramViewRed);
-            }
+        }
+
+        public ImageForm(ImageForm form, Bitmap bitmap)
+        {
+            InitializeComponent();
+            CopyId = form.CopyId;
+            ImagePath = form.ImagePath;
+            TitleText = "";
+            TitleText = "Copy_" + CopyId + "_" + Path.GetFileName(ImagePath);
+            CurrentImage = bitmap;
+            Text = TitleText;
+            DrawImageHistogram(bitmap);
+            pictureBoxImage.Image = bitmap;
         }
 
         private void ImageForm_Load(object sender, EventArgs e)
