@@ -75,14 +75,6 @@ namespace APO.Picture
 
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-            //histogram.Show();
-        }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-            
-        }
     }
 }

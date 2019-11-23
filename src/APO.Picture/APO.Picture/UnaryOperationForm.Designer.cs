@@ -1,6 +1,6 @@
 ﻿namespace APO.Picture
 {
-    partial class ImageForm
+    partial class UnaryOperationForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImageForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UnaryOperationForm));
             this.histogramGroup = new System.Windows.Forms.GroupBox();
             this.tabControlHistogram = new System.Windows.Forms.TabControl();
             this.tabPageGrey = new System.Windows.Forms.TabPage();
@@ -39,27 +39,30 @@
             this.histogramViewGreen = new Accord.Controls.HistogramView();
             this.tabPageBlue = new System.Windows.Forms.TabPage();
             this.histogramViewBlue = new Accord.Controls.HistogramView();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.pictureBoxImage = new System.Windows.Forms.PictureBox();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.colorSlider1 = new Accord.Controls.ColorSlider();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.histogramGroup.SuspendLayout();
             this.tabControlHistogram.SuspendLayout();
             this.tabPageGrey.SuspendLayout();
             this.tabPageRed.SuspendLayout();
             this.tabPageGreen.SuspendLayout();
             this.tabPageBlue.SuspendLayout();
+            this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxImage)).BeginInit();
-            this.tabControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // histogramGroup
             // 
             this.histogramGroup.Controls.Add(this.tabControlHistogram);
-            this.histogramGroup.Location = new System.Drawing.Point(747, 35);
+            this.histogramGroup.Location = new System.Drawing.Point(746, 34);
             this.histogramGroup.Name = "histogramGroup";
             this.histogramGroup.Size = new System.Drawing.Size(497, 520);
-            this.histogramGroup.TabIndex = 1;
+            this.histogramGroup.TabIndex = 3;
             this.histogramGroup.TabStop = false;
             this.histogramGroup.Text = "Histogram";
             // 
@@ -80,7 +83,7 @@
             this.tabPageGrey.Controls.Add(this.histogramViewGrey);
             this.tabPageGrey.Location = new System.Drawing.Point(4, 22);
             this.tabPageGrey.Name = "tabPageGrey";
-            this.tabPageGrey.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPageGrey.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageGrey.Size = new System.Drawing.Size(475, 467);
             this.tabPageGrey.TabIndex = 0;
             this.tabPageGrey.Text = "Greyscale";
@@ -103,7 +106,7 @@
             this.tabPageRed.Controls.Add(this.histogramViewRed);
             this.tabPageRed.Location = new System.Drawing.Point(4, 22);
             this.tabPageRed.Name = "tabPageRed";
-            this.tabPageRed.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPageRed.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageRed.Size = new System.Drawing.Size(475, 467);
             this.tabPageRed.TabIndex = 1;
             this.tabPageRed.Text = "Red";
@@ -126,7 +129,7 @@
             this.tabPageGreen.Controls.Add(this.histogramViewGreen);
             this.tabPageGreen.Location = new System.Drawing.Point(4, 22);
             this.tabPageGreen.Name = "tabPageGreen";
-            this.tabPageGreen.Size = new System.Drawing.Size(475, 464);
+            this.tabPageGreen.Size = new System.Drawing.Size(475, 467);
             this.tabPageGreen.TabIndex = 2;
             this.tabPageGreen.Text = "Green";
             this.tabPageGreen.UseVisualStyleBackColor = true;
@@ -165,12 +168,21 @@
             this.histogramViewBlue.Size = new System.Drawing.Size(475, 457);
             this.histogramViewBlue.TabIndex = 1;
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Location = new System.Drawing.Point(12, 12);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(704, 542);
+            this.tabControl1.TabIndex = 2;
+            // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.pictureBoxImage);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(696, 516);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Obraz";
@@ -185,40 +197,59 @@
             this.pictureBoxImage.TabIndex = 0;
             this.pictureBoxImage.TabStop = false;
             // 
-            // tabControl1
+            // colorSlider1
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Location = new System.Drawing.Point(13, 13);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(704, 542);
-            this.tabControl1.TabIndex = 0;
+            this.colorSlider1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.colorSlider1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.colorSlider1.DoubleArrow = false;
+            this.colorSlider1.Location = new System.Drawing.Point(69, 560);
+            this.colorSlider1.Name = "colorSlider1";
+            this.colorSlider1.Size = new System.Drawing.Size(280, 26);
+            this.colorSlider1.TabIndex = 34;
+            this.colorSlider1.Text = "colorSlider1";
             // 
-            // ImageForm
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(345, 558);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(70, 20);
+            this.numericUpDown1.TabIndex = 37;
+            this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            // 
+            // UnaryOperationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1284, 599);
+            this.ClientSize = new System.Drawing.Size(1256, 654);
+            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.colorSlider1);
             this.Controls.Add(this.histogramGroup);
             this.Controls.Add(this.tabControl1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.Name = "ImageForm";
-            this.Text = "ImageForm";
-            this.Load += new System.EventHandler(this.ImageForm_Load);
+            this.Name = "UnaryOperationForm";
+            this.Text = "UnaryOperationForm";
             this.histogramGroup.ResumeLayout(false);
             this.tabControlHistogram.ResumeLayout(false);
             this.tabPageGrey.ResumeLayout(false);
             this.tabPageRed.ResumeLayout(false);
             this.tabPageGreen.ResumeLayout(false);
             this.tabPageBlue.ResumeLayout(false);
+            this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxImage)).EndInit();
-            this.tabControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
         private System.Windows.Forms.GroupBox histogramGroup;
         private System.Windows.Forms.TabControl tabControlHistogram;
         private System.Windows.Forms.TabPage tabPageGrey;
@@ -229,8 +260,10 @@
         private Accord.Controls.HistogramView histogramViewGreen;
         private System.Windows.Forms.TabPage tabPageBlue;
         private Accord.Controls.HistogramView histogramViewBlue;
+        private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.PictureBox pictureBoxImage;
-        private System.Windows.Forms.TabControl tabControl1;
+        private Accord.Controls.ColorSlider colorSlider1;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
     }
 }

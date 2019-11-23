@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Linq;
 using Accord.Controls;
 using HistogramAccord = Accord.Statistics.Visualizations.Histogram;
 using Accord.Imaging;
@@ -90,7 +91,8 @@ namespace APO.Picture.Extensions
             histogramView.Graph.GraphPane.XAxis.Scale.MajorStep = 5;
         }
 
-        /* ========== Lab2 =========== */
+        #region Labo 2 (Rozciąganie i Equalizacja)
+
         //Rozciąganie
         public static Bitmap Stretch(Bitmap bitmap, int[] greyHistogram, int[] redHistogram, int[] greenHistogram, int[] blueHistogram)
         {
@@ -123,11 +125,67 @@ namespace APO.Picture.Extensions
                 }
             }
 
-
-
             Bitmap result = image.ToManagedImage();
             bitmap.UnlockBits(bitmapData);
             return result;
         }
+
+        //Equalizacja
+        public static Bitmap Equalization(Bitmap bitmap, int[] histogram)
+        {
+            int[] leftZ = new int[256];
+            int[] rightZ = new int[256];
+            int[] newValue = new int[256];
+            int histogramAverage = (int)histogram.Average();
+            int R = 0;
+            int Hint = 0;
+
+            for (int i = 0; i < histogram.Length; i++)
+            {
+                leftZ[i] = R;
+                Hint += histogram[i];
+
+                while (Hint > histogramAverage)
+                {
+                    Hint = Hint - histogramAverage;
+                    ++R;
+                }
+
+                rightZ[i] = R;
+                newValue[i] = (leftZ[i] + rightZ[i]) / 2;
+            }
+
+            BitmapData bitmapData =
+                bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height),
+                    ImageLockMode.ReadOnly,
+                    PixelFormat.Format32bppArgb);
+
+            UnmanagedImage image = new UnmanagedImage(bitmapData);
+
+            for (int i = 0; i < image.Width; i++)
+            {
+                for (int j = 0; j < image.Height; j++)
+                {
+                    Color color = image.GetPixel(i, j);
+
+                    if (leftZ[color.A] == rightZ[color.A] && leftZ[color.R] == rightZ[color.R] && leftZ[color.G] == rightZ[color.G] && leftZ[color.B] == rightZ[color.B])
+                    {
+                        image.SetPixel(i, j, Color.FromArgb(leftZ[color.A], leftZ[color.R], leftZ[color.G], leftZ[color.B]));
+                    }
+                    else
+                    {
+                        image.SetPixel(i, j,
+                            Color.FromArgb(color.A, newValue[color.R], newValue[color.R], newValue[color.R]));
+                    }
+                }
+            }
+
+            Bitmap resultBitmap = image.ToManagedImage();
+            bitmap.UnlockBits(bitmapData);
+            return resultBitmap;
+        }
+
+        #endregion
+
     }
 }

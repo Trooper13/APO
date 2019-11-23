@@ -71,6 +71,8 @@ namespace APO.Picture
             copyForm.Show();
         }
 
+        #region Labo 2: Rozciąganie i Equalizacja (Wyrównywanie)
+
         private void rozciaganieToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (ActiveMdiChild is ImageForm imageForm)
@@ -79,8 +81,54 @@ namespace APO.Picture
             }
             else
             {
-                MessageBox.Show("Wybierz inną formatkę");
+                MessageBox.Show("Wybierz poprawny obraz!", "Uwaga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+        private void metodaŚrednichToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild is ImageForm imageForm)
+            {
+                CopyImageForm(imageForm, Histogram.Equalization(imageForm.CurrentImage, imageForm.GreyHistogramArray));
+            }
+            else
+            {
+                MessageBox.Show("Wybierz poprawny obraz!", "Uwaga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        #endregion
+
+        #region Labo 2: Negacja, progowanie, posteryzacja, rozciąganie
+        private void lAB2NegacjaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild is ImageForm imageForm)
+            {
+                CopyImageForm(imageForm, MyBitmap.Negative(imageForm.CurrentImage));
+            }
+            else
+            {
+                MessageBox.Show("Wybierz poprawny obraz!", "Uwaga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void lAB2ProgowanieToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild is ImageForm imageForm)
+            {
+                UnaryOperationForm unaryForm = new UnaryOperationForm(imageForm, "Progowanie", MyBitmap.Tresholding)
+                {
+                    MdiParent = this
+                };
+                unaryForm.Show();
+            }
+            else
+            {
+                MessageBox.Show("Wybierz poprawny obraz!", "Uwaga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        #endregion
+
     }
 }
