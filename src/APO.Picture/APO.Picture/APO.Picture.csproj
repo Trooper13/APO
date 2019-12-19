@@ -95,6 +95,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TwoValuesUnaryOperationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TwoValuesUnaryOperationForm.Designer.cs">
+      <DependentUpon>TwoValuesUnaryOperationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UnaryOperationForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,6 +122,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="TwoValuesUnaryOperationForm.resx">
+      <DependentUpon>TwoValuesUnaryOperationForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UnaryOperationForm.resx">
       <DependentUpon>UnaryOperationForm.cs</DependentUpon>
     </EmbeddedResource>

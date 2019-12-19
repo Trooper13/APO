@@ -1,4 +1,5 @@
-﻿using System;
+﻿using APO.Picture.Extensions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,14 +8,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using APO.Picture.Extensions;
 
 namespace APO.Picture
 {
-    public partial class UnaryOperationForm : Form
+    public partial class TwoValuesUnaryOperationForm : Form
     {
-        public delegate Bitmap myMethod(Bitmap bitmap, int value);
-        public NumericUpDown NumericUpDownValue  { get; set; }
+        public delegate Bitmap myMethod(Bitmap bitmap, int firstValue, int secondValue);
+        public NumericUpDown FirstNumericUpDownValue { get; set; }
+        public NumericUpDown SecondNumericUpDownValue { get; set; }
 
         private ImageForm _imageForm;
         private Bitmap _currentImage;
@@ -24,19 +25,20 @@ namespace APO.Picture
         private int[] _greenHistogramArray;
         private int[] _blueHistogramArray;
 
-        private myMethod _unaryOperationMethod;
+        private myMethod _twoValuesUnaryOperationMethod;
 
-        public UnaryOperationForm(ImageForm imageForm, string title, myMethod method)
+        public TwoValuesUnaryOperationForm(ImageForm imageForm, string title, myMethod method)
         {
             InitializeComponent();
-            _unaryOperationMethod = new myMethod(method);
+            _twoValuesUnaryOperationMethod = new myMethod(method);
             _imageForm = imageForm;
             _currentImage = imageForm.CurrentImage;
             _orginalImage = _currentImage;
             Text = imageForm.Text + "_" + title;
             DrawImageHistogram(_currentImage);
             pictureBoxImage.Image = _currentImage;
-            NumericUpDownValue = numericUpDown1;
+            FirstNumericUpDownValue = numericUpDown1;
+            SecondNumericUpDownValue = numericUpDown2;
         }
 
         private void DrawImageHistogram(Bitmap bitmap)
@@ -58,10 +60,26 @@ namespace APO.Picture
             _currentImage = image;
         }
 
-        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        private void numericUpDown1_ValueChanged_1(object sender, EventArgs e)
         {
-            ReloadImageForm(_unaryOperationMethod(_orginalImage, (int)numericUpDown1.Value));
+            if (SecondNumericUpDownValue.Value <= FirstNumericUpDownValue.Value)
+            {
+                SecondNumericUpDownValue.Value = FirstNumericUpDownValue.Value + 1;
+            }
+            ReloadImageForm(_twoValuesUnaryOperationMethod(_orginalImage, (int)numericUpDown1.Value, (int)numericUpDown2.Value));
             //colorSlider1.Cursor. = (int) numericUpDown1.Value;
+        }
+
+        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
+        {
+            if (SecondNumericUpDownValue.Value > FirstNumericUpDownValue.Value)
+            {
+                ReloadImageForm(_twoValuesUnaryOperationMethod(_orginalImage, (int)numericUpDown1.Value, (int)numericUpDown2.Value));
+            }
+            else
+            {
+                SecondNumericUpDownValue.Value = FirstNumericUpDownValue.Value + 1;
+            }
         }
     }
 }

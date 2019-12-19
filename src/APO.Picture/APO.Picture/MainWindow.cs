@@ -128,6 +128,53 @@ namespace APO.Picture
             }
         }
 
+        private void lAB2ProgowaniezachowaniePoziomówSzarościToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild is ImageForm imageForm)
+            {
+                TwoValuesUnaryOperationForm unaryForm = new TwoValuesUnaryOperationForm(imageForm, "ProgowanieZzachowaniemOdcieniSzarosci", MyBitmap.ThresholdingSaveGreyScale)
+                {
+                    MdiParent = this
+                };
+                unaryForm.Show();
+            }
+            else
+            {
+                MessageBox.Show("Wybierz poprawny obraz!", "Uwaga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void lAB2PosteryzacjaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild is ImageForm imageForm)
+            {
+                UnaryOperationForm unaryForm = new UnaryOperationForm(imageForm, "Posteryzacja", MyBitmap.Reduction)
+                {
+                    MdiParent = this
+                };
+                unaryForm.Show();
+            }
+            else
+            {
+                MessageBox.Show("Wybierz poprawny obraz!", "Uwaga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void lAB2RozciaganieToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild is ImageForm imageForm)
+            {
+                TwoValuesUnaryOperationForm unaryForm = new TwoValuesUnaryOperationForm(imageForm, "ProgowanieZzachowaniemOdcieniSzarosci", MyBitmap.Stretching)
+                {
+                    MdiParent = this
+                };
+                unaryForm.Show();
+            }
+            else
+            {
+                MessageBox.Show("Wybierz poprawny obraz!", "Uwaga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
         #endregion
 
     }
