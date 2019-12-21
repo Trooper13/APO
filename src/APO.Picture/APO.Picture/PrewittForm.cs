@@ -5,71 +5,58 @@ using System.Drawing;
 using System.Windows.Forms;
 using Size = System.Drawing.Size;
 
+
 namespace APO.Picture
 {
-    public partial class SobelForm : Form
+    public partial class PrewittForm : Form
     {
         private ImageForm _imageForm;
         private Bitmap _currentImage;
 
-        public SobelForm(ImageForm imageForm)
+        public PrewittForm(ImageForm imageForm)
         {
             InitializeComponent();
             _imageForm = imageForm;
             _currentImage = imageForm.CurrentImage;
-            //pictureBox1.Image = _currentImage;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if(radioButton1.Checked)
+            if (radioButton1.Checked)
             {
-                calculateSobel(0, 1);
+                myCalculatePrewitt(Masks.xPrewitt);
             }
             if (radioButton2.Checked)
             {
-                calculateSobel(1, 0);
+                myCalculatePrewitt(Masks.yPrewitt);
             }
             if (radioButton3.Checked)
             {
-                myCalculateSobel(Masks.NWmask);
+                myCalculatePrewitt(Masks.NWprewitt);
             }
             if (radioButton4.Checked)
             {
-                myCalculateSobel(Masks.Nmask);
+                myCalculatePrewitt(Masks.Sprewitt);
             }
             if (radioButton5.Checked)
             {
-                myCalculateSobel(Masks.NEmask);
+                myCalculatePrewitt(Masks.NEprewitt);
             }
             if (radioButton6.Checked)
             {
-                myCalculateSobel(Masks.Wmask);
+                myCalculatePrewitt(Masks.Wprewitt);
             }
             if (radioButton7.Checked)
             {
-                myCalculateSobel(Masks.SWmask);
+                myCalculatePrewitt(Masks.SWprewitt);
             }
             if (radioButton8.Checked)
             {
-                myCalculateSobel(Masks.SEmask);
+                myCalculatePrewitt(Masks.SEprewitt);
             }
-
         }
 
-        private void calculateSobel(int v1, int v2)
-        {
-            Mat _image = OpenCvSharp.Extensions.BitmapConverter.ToMat(_currentImage);
-            Mat imageInvert = new Mat(_currentImage.Width, _currentImage.Height, MatType.CV_8U);
-
-            Cv2.Sobel(_image, imageInvert, MatType.CV_8U, v1, v2);
-
-            Bitmap result = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(imageInvert);
-
-            panAndZoomPictureBox1.Image = result;
-        }
-
-        private void myCalculateSobel(float[] mask)
+        private void myCalculatePrewitt(float[] mask)
         {
             var ksize = new Size(3, 3);
             var anchor = new OpenCvSharp.Point(-1, -1);
@@ -87,7 +74,7 @@ namespace APO.Picture
 
             Bitmap result = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(imageInvert);
 
-            panAndZoomPictureBox1.Image = result;
+            pictureBox1.Image = result;
         }
     }
 }

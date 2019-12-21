@@ -33,6 +33,20 @@ namespace APO.Picture.Data
         public static float[] SWmask = new float[] { 0, -1, -2, 1, 0, -1, 2, 1, 0 };
         public static float[] SEmask = new float[] { -2, -1, 0, -1, 0, 1, 0, 1, 2 };
 
+        //Maski Prewitta
+        public static float[] xPrewitt = new float[] { 1, 1, 1, 0, 0, 0, -1, -1, -1 };
+        public static float[] yPrewitt = new float[] { -1, 0, 1, -1, 0, 1, -1, 0, 1 };
+        public static float[] NWprewitt = new float[] { 1, 1, 0, 1, 0, -1, 0, -1, -1 };
+        public static float[] Sprewitt = new float[] { -1, -1, -1, 0, 0, 0, 1, 1, 1 };
+        public static float[] NEprewitt = new float[] { 0, 1, 1, -1, 0, 1, -1, -1, 0 };
+        public static float[] Wprewitt = new float[] { 1, 0, -1, 1, 0, -1, 1, 0, -1 };
+        public static float[] SWprewitt = new float[] { 0, -1, -1, 1, 0, -1, 1, 1, 0 };
+        public static float[] SEprewitt = new float[] { -1, -1, 0, -1, 0, 1, 0, 1, 1 };
+
+        //Maski Robertsa
+        internal static float[] NWroberts = new float[] { 1, 0, 0, -1 };
+        internal static float[] SEroberts = new float[] { -1, 0, 0, 1 };
+
         public static float SumMask(this float[] mask)
         {
             return mask.Sum();

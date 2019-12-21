@@ -384,5 +384,63 @@ namespace APO.Picture
                 MessageBox.Show("Wybierz poprawny obraz!", "Uwaga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+        private void prewittToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild is ImageForm imageForm)
+            {
+                PrewittForm form = new PrewittForm(imageForm)
+                {
+                    MdiParent = this
+                };
+                form.Show();
+            }
+            else
+            {
+                MessageBox.Show("Wybierz poprawny obraz!", "Uwaga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void robertsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild is ImageForm imageForm)
+            {
+                Roberts form = new Roberts(imageForm)
+                {
+                    MdiParent = this
+                };
+                form.Show();
+            }
+            else
+            {
+                MessageBox.Show("Wybierz poprawny obraz!", "Uwaga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void erozjaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void czterosasiedztwoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int i;
+            using (var form = new IterationForm())
+            {
+                if (form.ShowDialog() != DialogResult.OK)
+                    return;
+
+                i = form.Iterations;
+            }
+
+            if (ActiveMdiChild is ImageForm imageForm)
+            {
+                CopyImageForm(imageForm, MorfologicOperations.Erosion(imageForm.CurrentImage, 0, i));
+            }
+            else
+            {
+                MessageBox.Show("Wybierz poprawny obraz!", "Uwaga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
     }
 }

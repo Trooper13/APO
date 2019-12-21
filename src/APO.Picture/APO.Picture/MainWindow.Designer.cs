@@ -60,6 +60,16 @@
             this.maska3ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.filtrowanieMedianoweToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sobelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.prewittToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.robertsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.operacjeMorfologiczneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.erozjaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dylacjaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.otwarcieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.zamknięcieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.szkieletyzacjaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.czterosasiedztwoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ośmiosasiedztwoKwadratToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,7 +80,8 @@
             this.fileToolStripMenuItem,
             this.histogramToolStripMenuItem,
             this.operacjeJednopunktoweToolStripMenuItem,
-            this.operacjeLinioweToolStripMenuItem});
+            this.operacjeLinioweToolStripMenuItem,
+            this.operacjeMorfologiczneToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
@@ -201,7 +212,9 @@
             this.wyostrzanieToolStripMenuItem,
             this.wyostrzanieToolStripMenuItem1,
             this.filtrowanieMedianoweToolStripMenuItem,
-            this.sobelToolStripMenuItem});
+            this.sobelToolStripMenuItem,
+            this.prewittToolStripMenuItem,
+            this.robertsToolStripMenuItem});
             this.operacjeLinioweToolStripMenuItem.Name = "operacjeLinioweToolStripMenuItem";
             this.operacjeLinioweToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.operacjeLinioweToolStripMenuItem.Text = "Operacje liniowe";
@@ -321,6 +334,79 @@
             this.sobelToolStripMenuItem.Text = "Sobel";
             this.sobelToolStripMenuItem.Click += new System.EventHandler(this.sobelToolStripMenuItem_Click);
             // 
+            // prewittToolStripMenuItem
+            // 
+            this.prewittToolStripMenuItem.Name = "prewittToolStripMenuItem";
+            this.prewittToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.prewittToolStripMenuItem.Text = "Prewitt";
+            this.prewittToolStripMenuItem.Click += new System.EventHandler(this.prewittToolStripMenuItem_Click);
+            // 
+            // robertsToolStripMenuItem
+            // 
+            this.robertsToolStripMenuItem.Name = "robertsToolStripMenuItem";
+            this.robertsToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.robertsToolStripMenuItem.Text = "Roberts";
+            this.robertsToolStripMenuItem.Click += new System.EventHandler(this.robertsToolStripMenuItem_Click);
+            // 
+            // operacjeMorfologiczneToolStripMenuItem
+            // 
+            this.operacjeMorfologiczneToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.erozjaToolStripMenuItem,
+            this.dylacjaToolStripMenuItem,
+            this.otwarcieToolStripMenuItem,
+            this.zamknięcieToolStripMenuItem,
+            this.szkieletyzacjaToolStripMenuItem});
+            this.operacjeMorfologiczneToolStripMenuItem.Name = "operacjeMorfologiczneToolStripMenuItem";
+            this.operacjeMorfologiczneToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.operacjeMorfologiczneToolStripMenuItem.Text = "Operacje morfologiczne";
+            // 
+            // erozjaToolStripMenuItem
+            // 
+            this.erozjaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.czterosasiedztwoToolStripMenuItem,
+            this.ośmiosasiedztwoKwadratToolStripMenuItem});
+            this.erozjaToolStripMenuItem.Name = "erozjaToolStripMenuItem";
+            this.erozjaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.erozjaToolStripMenuItem.Text = "Erozja";
+            this.erozjaToolStripMenuItem.Click += new System.EventHandler(this.erozjaToolStripMenuItem_Click);
+            // 
+            // dylacjaToolStripMenuItem
+            // 
+            this.dylacjaToolStripMenuItem.Name = "dylacjaToolStripMenuItem";
+            this.dylacjaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.dylacjaToolStripMenuItem.Text = "Dylacja";
+            // 
+            // otwarcieToolStripMenuItem
+            // 
+            this.otwarcieToolStripMenuItem.Name = "otwarcieToolStripMenuItem";
+            this.otwarcieToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.otwarcieToolStripMenuItem.Text = "Otwarcie";
+            // 
+            // zamknięcieToolStripMenuItem
+            // 
+            this.zamknięcieToolStripMenuItem.Name = "zamknięcieToolStripMenuItem";
+            this.zamknięcieToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.zamknięcieToolStripMenuItem.Text = "Zamknięcie";
+            // 
+            // szkieletyzacjaToolStripMenuItem
+            // 
+            this.szkieletyzacjaToolStripMenuItem.Name = "szkieletyzacjaToolStripMenuItem";
+            this.szkieletyzacjaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.szkieletyzacjaToolStripMenuItem.Text = "Szkieletyzacja";
+            // 
+            // czterosasiedztwoToolStripMenuItem
+            // 
+            this.czterosasiedztwoToolStripMenuItem.Name = "czterosasiedztwoToolStripMenuItem";
+            this.czterosasiedztwoToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.czterosasiedztwoToolStripMenuItem.Text = "Czterosasiedztwo (Romb)";
+            this.czterosasiedztwoToolStripMenuItem.Click += new System.EventHandler(this.czterosasiedztwoToolStripMenuItem_Click);
+            // 
+            // ośmiosasiedztwoKwadratToolStripMenuItem
+            // 
+            this.ośmiosasiedztwoKwadratToolStripMenuItem.Name = "ośmiosasiedztwoKwadratToolStripMenuItem";
+            this.ośmiosasiedztwoKwadratToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.ośmiosasiedztwoKwadratToolStripMenuItem.Text = "Ośmiosasiedztwo (Kwadrat)";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -374,6 +460,16 @@
         private System.Windows.Forms.ToolStripMenuItem maska3ToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem filtrowanieMedianoweToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sobelToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem prewittToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem robertsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem operacjeMorfologiczneToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem erozjaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dylacjaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem otwarcieToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem zamknięcieToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem szkieletyzacjaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem czterosasiedztwoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ośmiosasiedztwoKwadratToolStripMenuItem;
     }
 }
 
