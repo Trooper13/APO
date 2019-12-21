@@ -1,4 +1,5 @@
-﻿using APO.Picture.Extensions;
+﻿using APO.Picture.Data;
+using APO.Picture.Extensions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -177,5 +178,211 @@ namespace APO.Picture
         }
         #endregion
 
+        //Filtry wygładzające
+        private void lAB2UniwersalnyOperatorJednopunktowyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ImageForm form = (ImageForm)ActiveMdiChild;
+            UopForm dialog = new UopForm(form.CurrentImage);
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                Cursor = Cursors.WaitCursor;
+                form.CurrentImage = dialog.Bitmap;
+                Cursor = Cursors.Default;
+            }
+        }
+
+        private void maska1ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(ActiveMdiChild is ImageForm imageForm)
+            {
+                SmoothForm smoothForm = new SmoothForm(imageForm, "WygładzanieLinioweMaska1", MyBitmap.SmoothMask, Masks.SmoothMaskOne)
+                {
+                    MdiParent = this
+                };
+                smoothForm.Show();
+            }
+            else
+            {
+                MessageBox.Show("Wybierz poprawny obraz!", "Uwaga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void maska2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild is ImageForm imageForm)
+            {
+                SmoothForm smoothForm = new SmoothForm(imageForm, "WygładzanieLinioweMaska2", MyBitmap.SmoothMask, Masks.SmoothMaskTwo)
+                {
+                    MdiParent = this
+                };
+                smoothForm.Show();
+            }
+            else
+            {
+                MessageBox.Show("Wybierz poprawny obraz!", "Uwaga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void maska3ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild is ImageForm imageForm)
+            {
+                SmoothForm smoothForm = new SmoothForm(imageForm, "WygładzanieLinioweMaska3", MyBitmap.SmoothMask, Masks.SmoothMaskThree)
+                {
+                    MdiParent = this
+                };
+                smoothForm.Show();
+            }
+            else
+            {
+                MessageBox.Show("Wybierz poprawny obraz!", "Uwaga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void maska4ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild is ImageForm imageForm)
+            {
+                SmoothForm smoothForm = new SmoothForm(imageForm, "WygładzanieLinioweMaska4", MyBitmap.SmoothMask, Masks.GetMyMask(20))
+                {
+                    MdiParent = this
+                };
+                smoothForm.Show();
+            }
+            else
+            {
+                MessageBox.Show("Wybierz poprawny obraz!", "Uwaga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        //Detekcja Krawędzi
+        private void mask1ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild is ImageForm imageForm)
+            {
+                SmoothForm smoothForm = new SmoothForm(imageForm, "DetekcjaKrawedziMaska1", MyBitmap.SharpAndEdgeMask, Masks.EdgeMaskOne)
+                {
+                    MdiParent = this
+                };
+                smoothForm.Show();
+            }
+            else
+            {
+                MessageBox.Show("Wybierz poprawny obraz!", "Uwaga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void mask2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild is ImageForm imageForm)
+            {
+                SmoothForm smoothForm = new SmoothForm(imageForm, "DetekcjaKrawedziMaska2", MyBitmap.SharpAndEdgeMask, Masks.EdgeMaskTwo)
+                {
+                    MdiParent = this
+                };
+                smoothForm.Show();
+            }
+            else
+            {
+                MessageBox.Show("Wybierz poprawny obraz!", "Uwaga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void mask3ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild is ImageForm imageForm)
+            {
+                SmoothForm smoothForm = new SmoothForm(imageForm, "DetekcjaKrawedziMaska3", MyBitmap.SharpAndEdgeMask, Masks.EdgeMaskThree)
+                {
+                    MdiParent = this
+                };
+                smoothForm.Show();
+            }
+            else
+            {
+                MessageBox.Show("Wybierz poprawny obraz!", "Uwaga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        //Filtry wyostrzające
+        private void maska1ToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild is ImageForm imageForm)
+            {
+                SmoothForm smoothForm = new SmoothForm(imageForm, "WyostrzanieMaska1", MyBitmap.SharpAndEdgeMask, Masks.SharpMaskOne)
+                {
+                    MdiParent = this
+                };
+                smoothForm.Show();
+            }
+            else
+            {
+                MessageBox.Show("Wybierz poprawny obraz!", "Uwaga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void maska2ToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild is ImageForm imageForm)
+            {
+                SmoothForm smoothForm = new SmoothForm(imageForm, "WyostrzanieMaska2", MyBitmap.SharpAndEdgeMask, Masks.SharpMaskTwo)
+                {
+                    MdiParent = this
+                };
+                smoothForm.Show();
+            }
+            else
+            {
+                MessageBox.Show("Wybierz poprawny obraz!", "Uwaga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void maska3ToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild is ImageForm imageForm)
+            {
+                SmoothForm smoothForm = new SmoothForm(imageForm, "WyostrzanieMaska3", MyBitmap.SharpAndEdgeMask, Masks.SharpMaskThree)
+                {
+                    MdiParent = this
+                };
+                smoothForm.Show();
+            }
+            else
+            {
+                MessageBox.Show("Wybierz poprawny obraz!", "Uwaga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void filtrowanieMedianoweToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild is ImageForm imageForm)
+            {
+                SmoothMedianForm form = new SmoothMedianForm(imageForm)
+                {
+                    MdiParent = this
+                };
+                form.Show();
+            }
+            else
+            {
+                MessageBox.Show("Wybierz poprawny obraz!", "Uwaga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void sobelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild is ImageForm imageForm)
+            {
+                SobelForm form = new SobelForm(imageForm)
+                {
+                    MdiParent = this
+                };
+                form.Show();
+            }
+            else
+            {
+                MessageBox.Show("Wybierz poprawny obraz!", "Uwaga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
     }
 }

@@ -1,14 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Emgu.CV;
+using Emgu.CV.Structure;
+using System;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing.Imaging;
+using OpenCvSharp;
+using Size = System.Drawing.Size;
+using Point = System.Drawing.Point;
+using Mat = OpenCvSharp.Mat;
+using APO.Picture.Data;
 
 namespace APO.Picture.Extensions
 {
-    class MyBitmap
+    public class MyBitmap
     {
+        private BitmapData bitmapData;
+
         /// <summary>
         /// Negacja (odwrotność)
         /// </summary>
@@ -147,5 +153,85 @@ namespace APO.Picture.Extensions
             }
             return result;
         }
+
+        public static Bitmap SmoothMask(Bitmap image, float[] mask)
+        {
+
+            var ksize = new Size(3, 3);
+            var anchor = new OpenCvSharp.Point(-1, -1);
+            Mat karnelNorm = new Mat();
+            Mat imageGrey = new Mat();
+            float devider = mask.SumMask();
+
+            Mat karnel = new Mat(3, 3, MatType.CV_32F, mask);
+            Mat _image = OpenCvSharp.Extensions.BitmapConverter.ToMat(image);
+
+            if (_image.Channels() != 1)
+                Cv2.CvtColor(_image, imageGrey, ColorConversionCodes.RGB2GRAY);
+
+            Cv2.Multiply(karnel, new Scalar(1 / (double)devider), karnelNorm);
+
+
+            Mat imageInvert = new Mat(image.Width, image.Height, MatType.CV_8U);
+
+            if (_image.Channels() != 1)
+                Cv2.Filter2D(imageGrey, imageInvert, -1, karnelNorm, anchor);
+
+            Cv2.Filter2D(_image, imageInvert, -1, karnelNorm, anchor);
+
+            Bitmap result = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(imageInvert);
+
+            return result;
+        }
+
+        public static Bitmap SharpAndEdgeMask(Bitmap image, float[] mask)
+        {
+            
+            var ksize = new Size(3, 3);
+            var anchor = new OpenCvSharp.Point(-1, -1);
+            //Mat karnelNorm = new Mat();
+            Mat imageGrey = new Mat();
+            //float devider = mask.SumMask();
+
+            Mat karnel = new Mat(3, 3, MatType.CV_32F, mask);
+            Mat _image = OpenCvSharp.Extensions.BitmapConverter.ToMat(image);
+
+            if (_image.Channels() != 1)
+                Cv2.CvtColor(_image, imageGrey, ColorConversionCodes.RGB2GRAY);
+
+            //Cv2.Multiply(karnel, new Scalar(1 / (double)devider), karnelNorm);
+
+
+            Mat imageInvert = new Mat(image.Width, image.Height, MatType.CV_8U);
+
+            if (_image.Channels() != 1)
+                Cv2.Filter2D(imageGrey, imageInvert, -1, karnel, anchor);
+
+            Cv2.Filter2D(_image, imageInvert, -1, karnel, anchor);
+
+            Bitmap result = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(imageInvert);
+
+            return result;
+        }
+
     }
 }
+//var ksize = new Size(3, 3);
+//var anchor = new Point(-1, -1);
+
+//Image<Gray, Byte> _image = new Image<Gray, byte>(image);//load the image from some where
+//Image<Gray, Byte> imageInvert = new Image<Gray, Byte>(image.Width, image.Height);
+//CvInvoke.Blur(_image, imageInvert, ksize, anchor);
+
+//return imageInvert.Bitmap;
+
+//float[] data = new float[] { 0, 1, 0, 1, 4, 1, 0, 1, 0 };
+
+//var anchor = new Point(-1, -1);
+//int[] data = new int[]{ 0, 1, 0, 1, 4, 1, 0, 1, 0 };
+//Mat karnel = new Mat(ksize, Emgu.CV.CvEnum.DepthType.Default, 1);
+//karnel.SetTo<float>(0, 0, -1);
+
+//Image<Gray, Byte> _image = new Image<Gray, byte>(image);//load the image from some where
+//Image<Gray, Byte> imageInvert = new Image<Gray, Byte>(image.Width, image.Height);
+//CvInvoke.Filter2D(_image, imageInvert, karnel, anchor);

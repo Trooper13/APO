@@ -58,7 +58,7 @@
             this.histogramGroup.Controls.Add(this.tabControlHistogram);
             this.histogramGroup.Location = new System.Drawing.Point(747, 35);
             this.histogramGroup.Name = "histogramGroup";
-            this.histogramGroup.Size = new System.Drawing.Size(497, 520);
+            this.histogramGroup.Size = new System.Drawing.Size(497, 296);
             this.histogramGroup.TabIndex = 1;
             this.histogramGroup.TabStop = false;
             this.histogramGroup.Text = "Histogram";
@@ -72,7 +72,7 @@
             this.tabControlHistogram.Location = new System.Drawing.Point(7, 20);
             this.tabControlHistogram.Name = "tabControlHistogram";
             this.tabControlHistogram.SelectedIndex = 0;
-            this.tabControlHistogram.Size = new System.Drawing.Size(483, 493);
+            this.tabControlHistogram.Size = new System.Drawing.Size(483, 276);
             this.tabControlHistogram.TabIndex = 0;
             // 
             // tabPageGrey
@@ -80,8 +80,8 @@
             this.tabPageGrey.Controls.Add(this.histogramViewGrey);
             this.tabPageGrey.Location = new System.Drawing.Point(4, 22);
             this.tabPageGrey.Name = "tabPageGrey";
-            this.tabPageGrey.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            this.tabPageGrey.Size = new System.Drawing.Size(475, 467);
+            this.tabPageGrey.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageGrey.Size = new System.Drawing.Size(475, 250);
             this.tabPageGrey.TabIndex = 0;
             this.tabPageGrey.Text = "Greyscale";
             this.tabPageGrey.UseVisualStyleBackColor = true;
@@ -95,7 +95,7 @@
             this.histogramViewGrey.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.histogramViewGrey.Name = "histogramViewGrey";
             this.histogramViewGrey.NumberOfBins = null;
-            this.histogramViewGrey.Size = new System.Drawing.Size(465, 450);
+            this.histogramViewGrey.Size = new System.Drawing.Size(465, 247);
             this.histogramViewGrey.TabIndex = 0;
             // 
             // tabPageRed
@@ -103,8 +103,8 @@
             this.tabPageRed.Controls.Add(this.histogramViewRed);
             this.tabPageRed.Location = new System.Drawing.Point(4, 22);
             this.tabPageRed.Name = "tabPageRed";
-            this.tabPageRed.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            this.tabPageRed.Size = new System.Drawing.Size(475, 467);
+            this.tabPageRed.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageRed.Size = new System.Drawing.Size(475, 250);
             this.tabPageRed.TabIndex = 1;
             this.tabPageRed.Text = "Red";
             this.tabPageRed.UseVisualStyleBackColor = true;
@@ -118,7 +118,7 @@
             this.histogramViewRed.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.histogramViewRed.Name = "histogramViewRed";
             this.histogramViewRed.NumberOfBins = null;
-            this.histogramViewRed.Size = new System.Drawing.Size(472, 454);
+            this.histogramViewRed.Size = new System.Drawing.Size(472, 251);
             this.histogramViewRed.TabIndex = 0;
             // 
             // tabPageGreen
@@ -126,7 +126,7 @@
             this.tabPageGreen.Controls.Add(this.histogramViewGreen);
             this.tabPageGreen.Location = new System.Drawing.Point(4, 22);
             this.tabPageGreen.Name = "tabPageGreen";
-            this.tabPageGreen.Size = new System.Drawing.Size(475, 464);
+            this.tabPageGreen.Size = new System.Drawing.Size(475, 250);
             this.tabPageGreen.TabIndex = 2;
             this.tabPageGreen.Text = "Green";
             this.tabPageGreen.UseVisualStyleBackColor = true;
@@ -140,7 +140,7 @@
             this.histogramViewGreen.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.histogramViewGreen.Name = "histogramViewGreen";
             this.histogramViewGreen.NumberOfBins = null;
-            this.histogramViewGreen.Size = new System.Drawing.Size(475, 457);
+            this.histogramViewGreen.Size = new System.Drawing.Size(475, 254);
             this.histogramViewGreen.TabIndex = 1;
             // 
             // tabPageBlue
@@ -148,7 +148,7 @@
             this.tabPageBlue.Controls.Add(this.histogramViewBlue);
             this.tabPageBlue.Location = new System.Drawing.Point(4, 22);
             this.tabPageBlue.Name = "tabPageBlue";
-            this.tabPageBlue.Size = new System.Drawing.Size(475, 467);
+            this.tabPageBlue.Size = new System.Drawing.Size(475, 250);
             this.tabPageBlue.TabIndex = 3;
             this.tabPageBlue.Text = "Blue";
             this.tabPageBlue.UseVisualStyleBackColor = true;
@@ -162,7 +162,7 @@
             this.histogramViewBlue.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.histogramViewBlue.Name = "histogramViewBlue";
             this.histogramViewBlue.NumberOfBins = null;
-            this.histogramViewBlue.Size = new System.Drawing.Size(475, 457);
+            this.histogramViewBlue.Size = new System.Drawing.Size(475, 254);
             this.histogramViewBlue.TabIndex = 1;
             // 
             // tabPage1
@@ -170,7 +170,7 @@
             this.tabPage1.Controls.Add(this.pictureBoxImage);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(696, 516);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Obraz";
@@ -201,7 +201,7 @@
             this.ClientSize = new System.Drawing.Size(1284, 599);
             this.Controls.Add(this.histogramGroup);
             this.Controls.Add(this.tabControl1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ImageForm";
             this.Text = "ImageForm";
             this.Load += new System.EventHandler(this.ImageForm_Load);
