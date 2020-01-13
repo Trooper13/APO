@@ -161,6 +161,12 @@
     <Compile Include="SmoothMedianForm.Designer.cs">
       <DependentUpon>SmoothMedianForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SmoothParamForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmoothParamForm.Designer.cs">
+      <DependentUpon>SmoothParamForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SobelForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -222,6 +228,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SmoothMedianForm.resx">
       <DependentUpon>SmoothMedianForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmoothParamForm.resx">
+      <DependentUpon>SmoothParamForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SobelForm.resx">
       <DependentUpon>SobelForm.cs</DependentUpon>

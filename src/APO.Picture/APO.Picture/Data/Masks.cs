@@ -27,7 +27,7 @@ namespace APO.Picture.Data
 
         //Maski Sobela
         public static float[] NWmask = new float[] { 2, 1, 0, 1, 0, -1, 0, -1, -2 };
-        public static float[] Nmask = new float[] { 1, 2, 1, 0, 0, 0, -1, -2, -2 };
+        public static float[] Nmask = new float[] { 1, 2, 1, 0, 0, 0, -1, -2, -1 };
         public static float[] NEmask = new float[] { 0, 1, 2, -1, 0, 1, -2, -1, 0 };
         public static float[] Wmask = new float[] { 1, 0, -1, 2, 0, -2, 1, 0, -1 };
         public static float[] SWmask = new float[] { 0, -1, -2, 1, 0, -1, 2, 1, 0 };

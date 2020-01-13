@@ -241,9 +241,18 @@ namespace APO.Picture
 
         private void maska4ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            int k;
+            using (var form = new SmoothParamForm())
+            {
+                if (form.ShowDialog() != DialogResult.OK)
+                    return;
+
+                k = form.Param;
+            }
+
             if (ActiveMdiChild is ImageForm imageForm)
             {
-                SmoothForm smoothForm = new SmoothForm(imageForm, "WygładzanieLinioweMaska4", MyBitmap.SmoothMask, Masks.GetMyMask(20))
+                SmoothForm smoothForm = new SmoothForm(imageForm, "WygładzanieLinioweMaska4", MyBitmap.SmoothMask, Masks.GetMyMask(k))
                 {
                     MdiParent = this
                 };
@@ -436,6 +445,147 @@ namespace APO.Picture
             if (ActiveMdiChild is ImageForm imageForm)
             {
                 CopyImageForm(imageForm, MorfologicOperations.Erosion(imageForm.CurrentImage, 0, i));
+            }
+            else
+            {
+                MessageBox.Show("Wybierz poprawny obraz!", "Uwaga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void ośmiosasiedztwoKwadratToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int i;
+            using (var form = new IterationForm())
+            {
+                if (form.ShowDialog() != DialogResult.OK)
+                    return;
+
+                i = form.Iterations;
+            }
+
+            if (ActiveMdiChild is ImageForm imageForm)
+            {
+                CopyImageForm(imageForm, MorfologicOperations.Erosion(imageForm.CurrentImage, 1, i));
+            }
+            else
+            {
+                MessageBox.Show("Wybierz poprawny obraz!", "Uwaga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void czterosasiedztwoRombToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int i;
+            using (var form = new IterationForm())
+            {
+                if (form.ShowDialog() != DialogResult.OK)
+                    return;
+
+                i = form.Iterations;
+            }
+
+            if (ActiveMdiChild is ImageForm imageForm)
+            {
+                CopyImageForm(imageForm, MorfologicOperations.Dilate(imageForm.CurrentImage, 0, i));
+            }
+            else
+            {
+                MessageBox.Show("Wybierz poprawny obraz!", "Uwaga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void ośmiosasiedztwoKwadratToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            int i;
+            using (var form = new IterationForm())
+            {
+                if (form.ShowDialog() != DialogResult.OK)
+                    return;
+
+                i = form.Iterations;
+            }
+
+            if (ActiveMdiChild is ImageForm imageForm)
+            {
+                CopyImageForm(imageForm, MorfologicOperations.Dilate(imageForm.CurrentImage, 1, i));
+            }
+            else
+            {
+                MessageBox.Show("Wybierz poprawny obraz!", "Uwaga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        //Otwarcie
+        private void czterosasiedztwoRombToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild is ImageForm imageForm)
+            {
+                CopyImageForm(imageForm, MorfologicOperations.Open(imageForm.CurrentImage, 0));
+            }
+            else
+            {
+                MessageBox.Show("Wybierz poprawny obraz!", "Uwaga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void osmiosasiedztwoKwadratToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild is ImageForm imageForm)
+            {
+                CopyImageForm(imageForm, MorfologicOperations.Open(imageForm.CurrentImage, 1));
+            }
+            else
+            {
+                MessageBox.Show("Wybierz poprawny obraz!", "Uwaga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        //Zamknięcie
+        private void czterosasiedztwoRombToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild is ImageForm imageForm)
+            {
+                CopyImageForm(imageForm, MorfologicOperations.Close(imageForm.CurrentImage, 0));
+            }
+            else
+            {
+                MessageBox.Show("Wybierz poprawny obraz!", "Uwaga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void osmiosasiedztwoKwadratToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild is ImageForm imageForm)
+            {
+                CopyImageForm(imageForm, MorfologicOperations.Close(imageForm.CurrentImage, 1));
+            }
+            else
+            {
+                MessageBox.Show("Wybierz poprawny obraz!", "Uwaga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void szkieletyzacjaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild is ImageForm imageForm)
+            {
+                CopyImageForm(imageForm, MorfologicOperations.Skeleton(imageForm.CurrentImage, 0));
+            }
+            else
+            {
+                MessageBox.Show("Wybierz poprawny obraz!", "Uwaga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void operacjeSasiedztwaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild is ImageForm imageForm)
+            {
+               NeighborhoodOperation form = new NeighborhoodOperation(imageForm)
+                {
+                    MdiParent = this
+                };
+                form.Show();
             }
             else
             {
