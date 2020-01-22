@@ -27,7 +27,10 @@ namespace APO.Picture.Extensions
                     {
                         case "Grey":
                             Color = image.GetPixel(x, y);
-                            _level = (int)(Color.R + Color.G + Color.B)/3;
+                            //if(Color.R == Color.G && Color.G == Color.B)
+                                _level = (int)(Color.R + Color.G + Color.B)/3;
+                            //else
+                            //    _level = (int)(Color.R * 0.299 + Color.G * 0.587 + Color.B * 0.114);
                             Levels[_level]++;
                             MaxPixels = Math.Max(MaxPixels, Levels[_level]);
                             MaxLevel = Math.Max(MaxLevel, _level);
@@ -99,12 +102,31 @@ namespace APO.Picture.Extensions
             int min = 0;
             int max = 255;
 
+            int Lmin = 0;
+            int Lmax = 255;
+
             BitmapData bitmapData =
                 bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height),
                 ImageLockMode.ReadOnly,
                 PixelFormat.Format32bppArgb);
 
             UnmanagedImage image = new UnmanagedImage(bitmapData);
+            UnmanagedImage resultImage = new UnmanagedImage(bitmapData);
+
+            // This code do nothing XD
+            //for (int i = 0; i < image.Width; ++i)
+            //{
+            //    for (int j = 0; j < image.Height; ++j)
+            //    {
+            //        int pixel = image.GetPixel(i, j).ToArgb();
+
+            //        int red = ((pixel >> 16) & 0xff);
+            //        int green = ((pixel >> 8) & 0xff);
+            //        int blue = (pixel & 0xff);
+
+            //        image.SetPixel(i, j, Color.FromArgb(red, red, red));
+            //    }
+            //}
 
             while (greyHistogram[min] <= 0)
             {
@@ -116,16 +138,35 @@ namespace APO.Picture.Extensions
                 max -= 1;
             }
 
+            float x = (float)255 / (max - min);
+
             for (int i = 0; i < image.Width; ++i)
             {
                 for (int j = 0; j < image.Height; ++j)
                 {
-                    int color = (image.GetPixel(i, j).R - min) * (255 / (max - min));
-                    image.SetPixel(i, j, Color.FromArgb(color, color, color));
+                    if ((image.GetPixel(i, j).R) <= min)
+                    {
+                        resultImage.SetPixel(i, j, Color.FromArgb(0, 0, 0));
+                    }
+                    else if ((image.GetPixel(i, j).R) >= max)
+                    {
+                        resultImage.SetPixel(i, j, Color.FromArgb(255, 255, 255));
+                    }
+                    else
+                    {
+                        int a = image.GetPixel(i, j).R;
+
+                        var color = (int)((255.0 / (max - min)) * (a - min));
+
+                        //int color = (int)((image.GetPixel(i, j).R - min) * x);
+
+                        //int color = (((image.GetPixel(i, j).R * 255) - min) * Lmax) / (max - min);
+                        resultImage.SetPixel(i, j, Color.FromArgb(color, color, color));
+                    }
                 }
             }
 
-            Bitmap result = image.ToManagedImage();
+            Bitmap result = resultImage.ToManagedImage();
             bitmap.UnlockBits(bitmapData);
             return result;
         }

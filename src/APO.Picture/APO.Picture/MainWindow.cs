@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Accord.IO;
 
 namespace APO.Picture
 {
@@ -590,6 +591,98 @@ namespace APO.Picture
             else
             {
                 MessageBox.Show("Wybierz poprawny obraz!", "Uwaga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "jpg file(*.jpg)|*.jpg|jpeg file(*.jpeg)|*.jpeg|" +
+                                        "png file(*.png)|*.png|bmp file(*.bmp)|*.bmp|tiff file(*.tiff)|*.tiff";
+                saveFileDialog.RestoreDirectory = true;
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    ImageForm form = (ImageForm)ActiveMdiChild;
+                    form.Save(saveFileDialog.FileName);
+                }
+            }
+        }
+
+        private void wektorCechToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild is ImageForm imageForm)
+            {
+                MyBitmap.WektorCech(imageForm.FastImage);
+            }
+            else
+            {
+                MessageBox.Show("Wybierz poprawny obraz!", "Uwaga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void save2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "jpg file(*.jpg)|*.jpg|jpeg file(*.jpeg)|*.jpeg|" +
+                                        "png file(*.png)|*.png|bmp file(*.bmp)|*.bmp|tiff file(*.tiff)|*.tiff";
+                saveFileDialog.RestoreDirectory = true;
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    UnaryOperationForm form = (UnaryOperationForm)ActiveMdiChild;
+                    form.SaveTwo(saveFileDialog.FileName);
+                }
+            }
+        }
+
+        private void savemaskiToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "jpg file(*.jpg)|*.jpg|jpeg file(*.jpeg)|*.jpeg|" +
+                                        "png file(*.png)|*.png|bmp file(*.bmp)|*.bmp|tiff file(*.tiff)|*.tiff";
+                saveFileDialog.RestoreDirectory = true;
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    SmoothForm form = (SmoothForm)ActiveMdiChild;
+                    form.Save(saveFileDialog.FileName);
+                }
+            }
+        }
+
+        private void savemedianToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "jpg file(*.jpg)|*.jpg|jpeg file(*.jpeg)|*.jpeg|" +
+                                        "png file(*.png)|*.png|bmp file(*.bmp)|*.bmp|tiff file(*.tiff)|*.tiff";
+                saveFileDialog.RestoreDirectory = true;
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    SmoothMedianForm form = (SmoothMedianForm)ActiveMdiChild;
+                    form.Save(saveFileDialog.FileName);
+                }
+            }
+        }
+
+        private void saveSobelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "jpg file(*.jpg)|*.jpg|jpeg file(*.jpeg)|*.jpeg|" +
+                                        "png file(*.png)|*.png|bmp file(*.bmp)|*.bmp|tiff file(*.tiff)|*.tiff";
+                saveFileDialog.RestoreDirectory = true;
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    SobelForm form = (SobelForm)ActiveMdiChild;
+                    form.Save(saveFileDialog.FileName);
+                }
             }
         }
     }

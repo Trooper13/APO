@@ -2,6 +2,8 @@
 using OpenCvSharp;
 using System;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Windows.Forms;
 using Size = System.Drawing.Size;
 
@@ -10,12 +12,14 @@ namespace APO.Picture
     public partial class SobelForm : Form
     {
         private ImageForm _imageForm;
+        private string _path;
         private Bitmap _currentImage;
 
         public SobelForm(ImageForm imageForm)
         {
             InitializeComponent();
             _imageForm = imageForm;
+            _path = imageForm.ImagePath;
             _currentImage = imageForm.CurrentImage;
             //pictureBox1.Image = _currentImage;
         }
@@ -88,6 +92,35 @@ namespace APO.Picture
             Bitmap result = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(imageInvert);
 
             panAndZoomPictureBox1.Image = result;
+        }
+
+        public void Save(string path)
+        {
+            StreamWriter writer = new StreamWriter(path);
+            ImageFormat format;
+            switch (Path.GetExtension(path).ToLower())
+            {
+                case ".jpg":
+                case ".jpeg":
+                    format = ImageFormat.Jpeg;
+                    break;
+                case ".gif":
+                    format = ImageFormat.Gif;
+                    break;
+                case ".png":
+                    format = ImageFormat.Png;
+                    break;
+                case ".tiff":
+                    format = ImageFormat.Tiff;
+                    break;
+                default:
+                    format = ImageFormat.Bmp;
+                    break;
+            }
+            panAndZoomPictureBox1.Image.Save(writer.BaseStream, format);
+            writer.Close();
+            this._path = path;
+            Text = Path.GetFileName(path);
         }
     }
 }

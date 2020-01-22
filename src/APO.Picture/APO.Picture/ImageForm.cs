@@ -18,6 +18,8 @@ namespace APO.Picture
         private Histogram histogram;
         public string ImagePath { get; set; }
         public Bitmap CurrentImage { get; set; }
+
+        public FastBitmap FastImage { get; set; }
         public int[] GreyHistogramArray { get; set; }
         public int[] RedHistogramArray { get; set; }
         public int[] GreenHistogramArray { get; set; }
@@ -39,6 +41,12 @@ namespace APO.Picture
             ImagePath = file;
             Text = Path.GetFileName(file);
             CurrentImage = (Bitmap) Image.FromFile(ImagePath);
+            //////////////////////////////
+            var reader = new StreamReader(file);
+            var bmpTemp = (Bitmap)System.Drawing.Image.FromStream(reader.BaseStream);
+            reader.Close();
+            FastImage = new FastBitmap(bmpTemp);
+            //////////////////////////////
             DrawImageHistogram(CurrentImage);
             pictureBoxImage.Image = CurrentImage;
         }
@@ -74,7 +82,33 @@ namespace APO.Picture
         {
 
         }
-
-
+        public void Save(string path)
+        {
+            StreamWriter writer = new StreamWriter(path);
+            ImageFormat format;
+            switch (Path.GetExtension(path).ToLower())
+            {
+                case ".jpg":
+                case ".jpeg":
+                    format = ImageFormat.Jpeg;
+                    break;
+                case ".gif":
+                    format = ImageFormat.Gif;
+                    break;
+                case ".png":
+                    format = ImageFormat.Png;
+                    break;
+                case ".tiff":
+                    format = ImageFormat.Tiff;
+                    break;
+                default:
+                    format = ImageFormat.Bmp;
+                    break;
+            }
+            CurrentImage.Save(writer.BaseStream, format);
+            writer.Close();
+            this.ImagePath = path;
+            Text = Path.GetFileName(path);
+        }
     }
 }

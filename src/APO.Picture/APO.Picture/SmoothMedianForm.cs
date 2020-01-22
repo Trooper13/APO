@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,12 +16,14 @@ namespace APO.Picture
     public partial class SmoothMedianForm : Form
     {
         private ImageForm _imageForm;
+        private string _path;
         private Bitmap _currentImage;
 
         public SmoothMedianForm(ImageForm imageForm)
         {
             InitializeComponent();
             _imageForm = imageForm;
+            _path = imageForm.ImagePath;
             _currentImage = imageForm.CurrentImage;
             pictureBox2.Image = _currentImage;
         }
@@ -77,6 +81,35 @@ namespace APO.Picture
         private void button2_Click(object sender, EventArgs e)
         {
             pictureBox1.Image = null;
+        }
+
+        public void Save(string path)
+        {
+            StreamWriter writer = new StreamWriter(path);
+            ImageFormat format;
+            switch (Path.GetExtension(path).ToLower())
+            {
+                case ".jpg":
+                case ".jpeg":
+                    format = ImageFormat.Jpeg;
+                    break;
+                case ".gif":
+                    format = ImageFormat.Gif;
+                    break;
+                case ".png":
+                    format = ImageFormat.Png;
+                    break;
+                case ".tiff":
+                    format = ImageFormat.Tiff;
+                    break;
+                default:
+                    format = ImageFormat.Bmp;
+                    break;
+            }
+            pictureBox1.Image.Save(writer.BaseStream, format);
+            writer.Close();
+            this._path = path;
+            Text = Path.GetFileName(path);
         }
     }
 }

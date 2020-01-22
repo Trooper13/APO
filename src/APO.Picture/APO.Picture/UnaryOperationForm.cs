@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +21,7 @@ namespace APO.Picture
         private ImageForm _imageForm;
         private Bitmap _currentImage;
         private Bitmap _orginalImage;
+        private string _path;
         private int[] _greyHistogramArray;
         private int[] _redHistogramArray;
         private int[] _greenHistogramArray;
@@ -33,6 +36,7 @@ namespace APO.Picture
             _imageForm = imageForm;
             _currentImage = imageForm.CurrentImage;
             _orginalImage = _currentImage;
+            _path = imageForm.ImagePath;
             Text = imageForm.Text + "_" + title;
             DrawImageHistogram(_currentImage);
             pictureBoxImage.Image = _currentImage;
@@ -62,6 +66,34 @@ namespace APO.Picture
         {
             ReloadImageForm(_unaryOperationMethod(_orginalImage, (int)numericUpDown1.Value));
             //colorSlider1.Cursor. = (int) numericUpDown1.Value;
+        }
+        public void SaveTwo(string path)
+        {
+            StreamWriter writer = new StreamWriter(path);
+            ImageFormat format;
+            switch (Path.GetExtension(path).ToLower())
+            {
+                case ".jpg":
+                case ".jpeg":
+                    format = ImageFormat.Jpeg;
+                    break;
+                case ".gif":
+                    format = ImageFormat.Gif;
+                    break;
+                case ".png":
+                    format = ImageFormat.Png;
+                    break;
+                case ".tiff":
+                    format = ImageFormat.Tiff;
+                    break;
+                default:
+                    format = ImageFormat.Bmp;
+                    break;
+            }
+            _currentImage.Save(writer.BaseStream, format);
+            writer.Close();
+            this._path = path;
+            Text = Path.GetFileName(path);
         }
     }
 }

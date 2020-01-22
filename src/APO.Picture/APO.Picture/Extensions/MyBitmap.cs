@@ -3,6 +3,7 @@ using Emgu.CV.Structure;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Windows.Forms;
 using OpenCvSharp;
 using Size = System.Drawing.Size;
 using Point = System.Drawing.Point;
@@ -212,6 +213,135 @@ namespace APO.Picture.Extensions
             Bitmap result = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(imageInvert);
 
             return result;
+        }
+
+        public static void WektorCech(FastBitmap bitmap)
+        {
+            var bmp = (FastBitmap)bitmap.Clone();
+
+            var perimeter = 0;
+            var area = 0;
+            var size = bmp.Width * bmp.Height;
+            var areaNorm = 0.0;
+            int[] r0 = { 0, 0 };
+            long m00 = 0;
+            long m10 = 0;
+            long m01 = 0;
+            long m11 = 0;
+
+            for (var x = 0; x < bmp.Width; x++)
+                for (var y = 0; y < bmp.Height; y++)
+                {
+                    int rpixel = bmp[x, y];
+                    if (rpixel > 0)
+                    {
+                        area++;
+                        m00 += bmp[x, y];
+                        m10 += x * bmp[x, y];
+                        m01 += y * bmp[x, y];
+                        m11 += x * y * bmp[x, y];
+
+                        for (var i = -1; i < 2; i++)
+                            for (var j = -1; j < 2; j++)
+                                if (isPixelValid(x + i, y + j, bmp.Width, bmp.Height))
+                                {
+                                    int sasiad = bmp[x + i, y + j];
+
+                                    if (sasiad == 0)
+                                    {
+                                        perimeter++;
+                                        r0[0] += x;
+                                        r0[1] += y;
+                                        goto next;
+                                    }
+                                }
+                    }
+
+                    next:;
+                }
+
+            if (perimeter > 0)
+            {
+                r0[0] = r0[0] / perimeter;
+                r0[1] = r0[1] / perimeter;
+            }
+
+            areaNorm = area / (double)size;
+            var W1 = 2.0 * Math.Sqrt(area / Math.PI);
+            var W2 = perimeter / Math.PI;
+            var W3 = perimeter / (2.0 * Math.Sqrt(area * Math.PI));
+            var W9 = 2.0 * Math.Sqrt(area * Math.PI) / perimeter;
+            var minX = -1;
+            var maxX = -1;
+            var minY = -1;
+            var maxY = -1;
+            var isSet = false;
+            long sumaOdl = 0;
+            long M10 = 0;
+            long M01 = 0;
+            long M11 = 0;
+
+            for (var x = 0; x < bmp.Width; x++)
+                for (var y = 0; y < bmp.Height; y++)
+                {
+                    int rpixel = bmp[x, y];
+                    if (rpixel > 0)
+                    {
+                        if (!isSet)
+                        {
+                            isSet = true;
+                            if (minX == -1) minX = x;
+                            if (maxX == -1) maxX = x;
+                            if (minY == -1) minY = y;
+                            if (maxY == -1) maxY = y;
+                        }
+
+                        if (x < minX) minX = x;
+                        if (x > maxX) maxX = x;
+                        if (y < minY) minY = y;
+                        if (y > maxY) maxY = y;
+
+                        M10 += (x - r0[0]) * bmp[x, y];
+                        M01 += (y - r0[1]) * bmp[x, y];
+                        M11 += (x - r0[0]) * (y - r0[1]) * bmp[x, y];
+                        sumaOdl += (long)Math.Pow(Math.Sqrt(Math.Pow(x - r0[0], 2) + Math.Pow(y - r0[1], 2)), 2);
+                    }
+                }
+
+            var gabarytX = maxX - minX;
+            var gabarytY = maxY - minY;
+            int gabaryt;
+            if (gabarytX > gabarytY) gabaryt = gabarytX;
+            else gabaryt = gabarytY;
+            var W8 = gabaryt / (double)perimeter;
+            var W4 = area / Math.Sqrt(2 * Math.PI * sumaOdl);
+
+            MessageBox.Show("Liczba pikseli: " + size +
+                            "\nPiksele tła: " + (size - area) +
+                            "\nPowierzchnia obiektu: " + area +
+                            //"\nArea (normalized): " + areaNorm +
+                            "\nOtoczenie: " + perimeter +
+                            "\nŚrodek ciężkości: " + r0[0] + ", " + r0[1] +
+                            "\n\nW1: " + W1 +
+                            "\nW2: " + W2 +
+                            "\nW3: " + W3 +
+                            "\nW4: " + W4 +
+                            "\nW8: " + W8 +
+                            "\nW9: " + W9 +
+                            "\n\nMoment m(0, 0): " + m00 +
+                            "\nMoment m(0, 1): " + m01 +
+                            "\nMoment m(1, 0): " + m10 +
+                            "\nMoment m(1, 1): " + m11 +
+                            "\n\nCentral moment M(1, 0): " + M10 +
+                            "\nCentral moment M(0, 1): " + M01 +
+                            "\nCentral moment M(1, 1): " + M11,
+                "Wyniki analizy");
+        }
+        private static bool isPixelValid(int x, int y, int width, int height)
+        {
+            if (x >= 0 && y >= 0 && x < width && y < height)
+                return true;
+            return false;
         }
 
     }
