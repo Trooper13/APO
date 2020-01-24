@@ -685,5 +685,17 @@ namespace APO.Picture
                 }
             }
         }
+
+        private void projektToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild is ImageForm imageForm)
+            {
+                CopyImageForm(imageForm, MyBitmap.Projekt(imageForm.CurrentImage, new Point(150,150)));
+            }
+            else
+            {
+                MessageBox.Show("Wybierz poprawny obraz!", "Uwaga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
     }
 }

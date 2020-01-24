@@ -9,6 +9,7 @@ using Size = System.Drawing.Size;
 using Point = System.Drawing.Point;
 using Mat = OpenCvSharp.Mat;
 using APO.Picture.Data;
+using System.Collections.Generic;
 
 namespace APO.Picture.Extensions
 {
@@ -344,6 +345,117 @@ namespace APO.Picture.Extensions
             return false;
         }
 
+        internal static Bitmap Projekt(Bitmap bmp, Point tresh)
+        {
+            //int[] img = new int[] {0, 0, 0, 0, 0, 0, 0,
+            //                       0, 1, 1, 1, 0, 0, 0,
+            //                       0, 1, 1, 0, 0, 0, 0,
+            //                       0, 1, 1, 1, 0, 0, 0,
+            //                       0, 0, 0, 0, 1, 1, 0,
+            //                       0, 0, 0, 0, 1, 1, 0,
+            //                       0, 0, 0, 0, 0, 0, 0 };
+
+            //var pointX = 3;
+            //var pointY = 3;
+            //Point A = new Point(pointX, pointY);
+
+            var width = bmp.Width;
+            var height = bmp.Height;
+
+            List<MyPoint> neighborhood = new List<MyPoint>();
+            List<MyPoint> tmp = new List<MyPoint>();
+
+            List<MyPoint> whitePoints = new List<MyPoint>();
+
+            Bitmap result = new Bitmap(bmp.Width, bmp.Height);
+
+            DateTime now = DateTime.Now;
+
+            //0.5s
+            for (int i = 0; i < result.Width; i++)
+            {
+                for (int j = 0; j < result.Height; j++)
+                {
+                    result.SetPixel(i, j, Color.FromArgb(0,0,0));
+                }
+            }
+
+            DateTime later = DateTime.Now;
+            var diff = later - now;
+
+            MyPoint point = new MyPoint(tresh, false);
+
+            neighborhood.Add(point);
+
+            bool search = true;
+
+            while (search)
+            {
+                foreach (var el in neighborhood)
+                {
+                    if (!el.isChecked && bmp.GetPixel(el.Point.X, el.Point.Y).R == 255)
+                    {
+                        try
+                        {
+                            Point top = new Point(el.Point.X, el.Point.Y - 1);
+                            Point bottom = new Point(el.Point.X, el.Point.Y + 1);
+                            Point left = new Point(el.Point.X - 1, el.Point.Y);
+                            Point right = new Point(el.Point.X + 1, el.Point.Y);
+
+                            //TOP
+                            if (bmp.GetPixel(top.X, top.Y).R == Color.White.R && !whitePoints.Exists(x => (x.Point.X == top.X) && (x.Point.Y == top.Y)))
+                                if(!tmp.Exists(x => (x.Point.X == top.X) && (x.Point.Y == top.Y)))
+                                    tmp.Add((new MyPoint(new Point(top.X, top.Y), false)));
+
+                            //BOTTOM
+                            if (bmp.GetPixel(bottom.X, bottom.Y).R == Color.White.R && !whitePoints.Exists(x => (x.Point.X == bottom.X) && (x.Point.Y == bottom.Y)))
+                                if(!tmp.Exists(x => (x.Point.X == bottom.X) && (x.Point.Y == bottom.Y)))
+                                    tmp.Add((new MyPoint(new Point(bottom.X, bottom.Y), false)));
+
+                            //LEFT
+                            if (bmp.GetPixel(left.X,left.Y).R == Color.White.R && !whitePoints.Exists(x => (x.Point.X == left.X) && (x.Point.Y == left.Y)))
+                                if(!tmp.Exists(x => (x.Point.X == left.X) && (x.Point.Y == left.Y)))
+                                    tmp.Add((new MyPoint(new Point(left.X, left.Y), false)));
+
+                            //RIGHT
+                            if (bmp.GetPixel(right.X, right.Y).R == Color.White.R && !whitePoints.Exists(x => (x.Point.X == right.X) && (x.Point.Y == right.Y)))
+                                if(!tmp.Exists(x => (x.Point.X == right.X) && (x.Point.Y == right.Y)))
+                                    tmp.Add((new MyPoint(new Point(right.X, right.Y), false)));
+
+                            el.isChecked = true;
+
+                            result.SetPixel(el.Point.X, el.Point.Y, Color.FromArgb(255));
+                            //whitePoints.Add(el);
+                        }
+                        catch (ArgumentOutOfRangeException)
+                        {
+                            // throw;
+                        }
+                    }
+                }
+
+                whitePoints.AddRange(neighborhood);
+                neighborhood.Clear();
+                neighborhood.AddRange(tmp);
+                tmp.Clear();
+
+                search = neighborhood.Exists(x => x.isChecked == false);
+            }
+
+            return result;
+        }
+    }
+
+    public class MyPoint
+    {
+        public Point Point { get; set; }
+        public bool isChecked { get; set; }
+
+        public MyPoint(Point _point, bool _isChecked)
+        {
+            Point = _point;
+            isChecked = _isChecked;
+        }
     }
 }
 //var ksize = new Size(3, 3);

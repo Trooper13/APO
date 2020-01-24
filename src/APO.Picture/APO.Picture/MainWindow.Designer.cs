@@ -34,6 +34,10 @@
             this.openFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.save2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.savemaskiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.savemedianToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveSobelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.histogramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rozciaganieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lAB2WyrównanieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -81,10 +85,7 @@
             this.segmentacjaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.przezRozrostToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.wektorCechToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.save2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.savemaskiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.savemedianToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveSobelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.projektToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -98,7 +99,8 @@
             this.operacjeLinioweToolStripMenuItem,
             this.operacjeMorfologiczneToolStripMenuItem,
             this.segmentacjaToolStripMenuItem,
-            this.wektorCechToolStripMenuItem});
+            this.wektorCechToolStripMenuItem,
+            this.projektToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
@@ -123,23 +125,51 @@
             // openFileToolStripMenuItem
             // 
             this.openFileToolStripMenuItem.Name = "openFileToolStripMenuItem";
-            this.openFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openFileToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.openFileToolStripMenuItem.Text = "Open file...";
             this.openFileToolStripMenuItem.Click += new System.EventHandler(this.openFileToolStripMenuItem_Click);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.saveAsToolStripMenuItem.Text = "Save as...";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.Exit);
+            // 
+            // save2ToolStripMenuItem
+            // 
+            this.save2ToolStripMenuItem.Name = "save2ToolStripMenuItem";
+            this.save2ToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.save2ToolStripMenuItem.Text = "save2";
+            this.save2ToolStripMenuItem.Click += new System.EventHandler(this.save2ToolStripMenuItem_Click);
+            // 
+            // savemaskiToolStripMenuItem
+            // 
+            this.savemaskiToolStripMenuItem.Name = "savemaskiToolStripMenuItem";
+            this.savemaskiToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.savemaskiToolStripMenuItem.Text = "save-maski";
+            this.savemaskiToolStripMenuItem.Click += new System.EventHandler(this.savemaskiToolStripMenuItem_Click);
+            // 
+            // savemedianToolStripMenuItem
+            // 
+            this.savemedianToolStripMenuItem.Name = "savemedianToolStripMenuItem";
+            this.savemedianToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.savemedianToolStripMenuItem.Text = "save-median";
+            this.savemedianToolStripMenuItem.Click += new System.EventHandler(this.savemedianToolStripMenuItem_Click);
+            // 
+            // saveSobelToolStripMenuItem
+            // 
+            this.saveSobelToolStripMenuItem.Name = "saveSobelToolStripMenuItem";
+            this.saveSobelToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.saveSobelToolStripMenuItem.Text = "save sobel";
+            this.saveSobelToolStripMenuItem.Click += new System.EventHandler(this.saveSobelToolStripMenuItem_Click);
             // 
             // histogramToolStripMenuItem
             // 
@@ -521,7 +551,7 @@
             // przezRozrostToolStripMenuItem
             // 
             this.przezRozrostToolStripMenuItem.Name = "przezRozrostToolStripMenuItem";
-            this.przezRozrostToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.przezRozrostToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.przezRozrostToolStripMenuItem.Text = "Przez Rozrost";
             // 
             // wektorCechToolStripMenuItem
@@ -531,33 +561,12 @@
             this.wektorCechToolStripMenuItem.Text = "Wektor Cech";
             this.wektorCechToolStripMenuItem.Click += new System.EventHandler(this.wektorCechToolStripMenuItem_Click);
             // 
-            // save2ToolStripMenuItem
+            // projektToolStripMenuItem
             // 
-            this.save2ToolStripMenuItem.Name = "save2ToolStripMenuItem";
-            this.save2ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.save2ToolStripMenuItem.Text = "save2";
-            this.save2ToolStripMenuItem.Click += new System.EventHandler(this.save2ToolStripMenuItem_Click);
-            // 
-            // savemaskiToolStripMenuItem
-            // 
-            this.savemaskiToolStripMenuItem.Name = "savemaskiToolStripMenuItem";
-            this.savemaskiToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.savemaskiToolStripMenuItem.Text = "save-maski";
-            this.savemaskiToolStripMenuItem.Click += new System.EventHandler(this.savemaskiToolStripMenuItem_Click);
-            // 
-            // savemedianToolStripMenuItem
-            // 
-            this.savemedianToolStripMenuItem.Name = "savemedianToolStripMenuItem";
-            this.savemedianToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.savemedianToolStripMenuItem.Text = "save-median";
-            this.savemedianToolStripMenuItem.Click += new System.EventHandler(this.savemedianToolStripMenuItem_Click);
-            // 
-            // saveSobelToolStripMenuItem
-            // 
-            this.saveSobelToolStripMenuItem.Name = "saveSobelToolStripMenuItem";
-            this.saveSobelToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.saveSobelToolStripMenuItem.Text = "save sobel";
-            this.saveSobelToolStripMenuItem.Click += new System.EventHandler(this.saveSobelToolStripMenuItem_Click);
+            this.projektToolStripMenuItem.Name = "projektToolStripMenuItem";
+            this.projektToolStripMenuItem.Size = new System.Drawing.Size(56, 22);
+            this.projektToolStripMenuItem.Text = "Projekt";
+            this.projektToolStripMenuItem.Click += new System.EventHandler(this.projektToolStripMenuItem_Click);
             // 
             // MainWindow
             // 
@@ -567,7 +576,7 @@
             this.Controls.Add(this.menuStrip1);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainWindow";
             this.Text = "APO_Mitura_IZ07IO2";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -636,6 +645,7 @@
         private System.Windows.Forms.ToolStripMenuItem savemaskiToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem savemedianToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveSobelToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem projektToolStripMenuItem;
     }
 }
 
