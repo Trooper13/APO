@@ -350,6 +350,8 @@ namespace APO.Picture.Extensions
             List<Point> neighborhood = new List<Point>();
             List<Point> tmp = new List<Point>();
 
+            Dictionary<int, string> isCheckCollection = new Dictionary<int, string>();
+
             Bitmap result = new Bitmap(bmp.Width, bmp.Height);
 
             DateTime now = DateTime.Now;
@@ -370,6 +372,7 @@ namespace APO.Picture.Extensions
 
             bool search = true;
             int counter = 0;
+            int k = 0;
 
             while (search)
             {
@@ -386,33 +389,38 @@ namespace APO.Picture.Extensions
                         Point right = new Point(el.X + 1, el.Y);
 
                         //TOP
-                        if (bmp.GetPixel(top.X, top.Y).R == Color.White.R)
+                        if (bmp.GetPixel(top.X, top.Y).R == Color.White.R && !isCheckCollection.ContainsValue($"{top.X},{top.Y}"))
                         {
                             result.SetPixel(top.X, top.Y, Color.FromArgb(255));
                             tmp.Add(new Point(top.X, top.Y)); //do tymczasowego sąsiedztwa
+                            isCheckCollection.Add(k++, $"{top.X},{top.Y}");
                         }
 
                         //BOTTOM
-                        if (bmp.GetPixel(bottom.X, bottom.Y).R == Color.White.R)
+                        if (bmp.GetPixel(bottom.X, bottom.Y).R == Color.White.R && !isCheckCollection.ContainsValue($"{bottom.X},{bottom.Y}"))
                         {
                             result.SetPixel(bottom.X, bottom.Y, Color.FromArgb(255));
                             tmp.Add(new Point(bottom.X, bottom.Y));
+                            isCheckCollection.Add(k++, $"{bottom.X},{bottom.Y}");
                         }
 
                         //LEFT
-                        if (bmp.GetPixel(left.X, left.Y).R == Color.White.R)
+                        if (bmp.GetPixel(left.X, left.Y).R == Color.White.R && !isCheckCollection.ContainsValue($"{left.X},{left.Y}"))
                         {
                             result.SetPixel(left.X, left.Y, Color.FromArgb(255));
                             tmp.Add(new Point(left.X, left.Y));
+                            isCheckCollection.Add(k++, $"{left.X},{left.Y}");
                         }
 
                         //RIGHT
-                        if (bmp.GetPixel(right.X, right.Y).R == Color.White.R)
+                        if (bmp.GetPixel(right.X, right.Y).R == Color.White.R && !isCheckCollection.ContainsValue($"{right.X},{right.Y}"))
                         {
                             result.SetPixel(right.X, right.Y, Color.FromArgb(255));
                             tmp.Add(new Point(right.X, right.Y));
+                            isCheckCollection.Add(k++, $"{right.X},{right.Y}");
                         }
 
+                        //isCheckCollection.Add(el.X, el.Y);
                         result.SetPixel(el.X, el.Y, Color.FromArgb(255));
                         bmp.SetPixel(el.X, el.Y, Color.FromArgb(0)); //set as black
 
@@ -427,10 +435,12 @@ namespace APO.Picture.Extensions
                 neighborhood.AddRange(tmp);
                 tmp.Clear();
 
-                //search = neighborhood.Count != 0;
+                search = neighborhood.Count != 0;
                 counter++;
-                search = counter != 20;
+                //search = counter != 100;
             }
+
+            var diff2 = DateTime.Now - now;
 
             return result;
         }
