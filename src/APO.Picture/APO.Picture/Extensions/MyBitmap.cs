@@ -422,7 +422,7 @@ namespace APO.Picture.Extensions
 
                         //isCheckCollection.Add(el.X, el.Y);
                         result.SetPixel(el.X, el.Y, Color.FromArgb(255));
-                        bmp.SetPixel(el.X, el.Y, Color.FromArgb(0)); //set as black
+                        //bmp.SetPixel(el.X, el.Y, Color.FromArgb(0)); //set as black
 
                     }
                     catch (ArgumentOutOfRangeException)
