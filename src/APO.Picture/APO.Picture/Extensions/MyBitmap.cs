@@ -422,7 +422,7 @@ namespace APO.Picture.Extensions
 
                         //isCheckCollection.Add(el.X, el.Y);
                         result.SetPixel(el.X, el.Y, Color.FromArgb(255));
-                        //bmp.SetPixel(el.X, el.Y, Color.FromArgb(0)); //set as black
+                        bmp.SetPixel(el.X, el.Y, Color.FromArgb(0)); //set as black
 
                     }
                     catch (ArgumentOutOfRangeException)
@@ -437,7 +437,6 @@ namespace APO.Picture.Extensions
 
                 search = neighborhood.Count != 0;
                 counter++;
-                //search = counter != 100;
             }
 
             var diff2 = DateTime.Now - now;
@@ -446,22 +445,3 @@ namespace APO.Picture.Extensions
         }
     }
 }
-//var ksize = new Size(3, 3);
-//var anchor = new Point(-1, -1);
-
-//Image<Gray, Byte> _image = new Image<Gray, byte>(image);//load the image from some where
-//Image<Gray, Byte> imageInvert = new Image<Gray, Byte>(image.Width, image.Height);
-//CvInvoke.Blur(_image, imageInvert, ksize, anchor);
-
-//return imageInvert.Bitmap;
-
-//float[] data = new float[] { 0, 1, 0, 1, 4, 1, 0, 1, 0 };
-
-//var anchor = new Point(-1, -1);
-//int[] data = new int[]{ 0, 1, 0, 1, 4, 1, 0, 1, 0 };
-//Mat karnel = new Mat(ksize, Emgu.CV.CvEnum.DepthType.Default, 1);
-//karnel.SetTo<float>(0, 0, -1);
-
-//Image<Gray, Byte> _image = new Image<Gray, byte>(image);//load the image from some where
-//Image<Gray, Byte> imageInvert = new Image<Gray, Byte>(image.Width, image.Height);
-//CvInvoke.Filter2D(_image, imageInvert, karnel, anchor);
