@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace APO.Picture.Extensions
+namespace APO.Picture.Segmentation
 {
     public class Curve
     {
