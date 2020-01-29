@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Forms;
-using APO.Picture.Extensions;
+using APO.Picture.Segmentation;
 
 namespace APO.Picture
 {

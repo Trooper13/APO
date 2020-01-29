@@ -38,6 +38,9 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.onePointDeleteButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.warningLabel = new System.Windows.Forms.Label();
+            this.resetButton = new System.Windows.Forms.Button();
+            this.reconstructionButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.statusStrip1.SuspendLayout();
@@ -49,7 +52,7 @@
             this.openButton.Font = new System.Drawing.Font("Fira Code Light", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.openButton.Location = new System.Drawing.Point(6, 15);
             this.openButton.Name = "openButton";
-            this.openButton.Size = new System.Drawing.Size(150, 49);
+            this.openButton.Size = new System.Drawing.Size(150, 47);
             this.openButton.TabIndex = 0;
             this.openButton.Text = "Otwórz obraz...";
             this.openButton.UseVisualStyleBackColor = true;
@@ -62,7 +65,7 @@
             this.pictureBox2.Location = new System.Drawing.Point(418, 89);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(400, 400);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox2.TabIndex = 6;
             this.pictureBox2.TabStop = false;
             // 
@@ -71,7 +74,7 @@
             this.button2.Font = new System.Drawing.Font("Fira Code Light", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.button2.Location = new System.Drawing.Point(162, 15);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(137, 49);
+            this.button2.Size = new System.Drawing.Size(137, 47);
             this.button2.TabIndex = 7;
             this.button2.Text = "Zapisz obraz...";
             this.button2.UseVisualStyleBackColor = true;
@@ -83,9 +86,10 @@
             this.pictureBox1.Location = new System.Drawing.Point(12, 89);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(400, 400);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
             this.pictureBox1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDoubleClick);
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             // 
@@ -94,7 +98,7 @@
             this.pointsListBox.FormattingEnabled = true;
             this.pointsListBox.Location = new System.Drawing.Point(12, 495);
             this.pointsListBox.Name = "pointsListBox";
-            this.pointsListBox.Size = new System.Drawing.Size(238, 109);
+            this.pointsListBox.Size = new System.Drawing.Size(244, 109);
             this.pointsListBox.TabIndex = 8;
             // 
             // statusStrip1
@@ -116,7 +120,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.groupBox1.BackColor = System.Drawing.SystemColors.Control;
             this.groupBox1.Controls.Add(this.openButton);
             this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Font = new System.Drawing.Font("Fira Code Light", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -133,7 +137,7 @@
             this.onePointDeleteButton.Font = new System.Drawing.Font("Fira Code Light", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.onePointDeleteButton.Location = new System.Drawing.Point(262, 495);
             this.onePointDeleteButton.Name = "onePointDeleteButton";
-            this.onePointDeleteButton.Size = new System.Drawing.Size(150, 49);
+            this.onePointDeleteButton.Size = new System.Drawing.Size(150, 54);
             this.onePointDeleteButton.TabIndex = 11;
             this.onePointDeleteButton.Text = "Usuń zaznaczony";
             this.onePointDeleteButton.UseVisualStyleBackColor = true;
@@ -142,19 +146,56 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Fira Code Light", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button1.Location = new System.Drawing.Point(262, 555);
+            this.button1.Location = new System.Drawing.Point(262, 552);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(150, 49);
+            this.button1.Size = new System.Drawing.Size(150, 52);
             this.button1.TabIndex = 12;
             this.button1.Text = "Usuń wszystkie";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.allPointsDeleteButton_Click_1);
+            // 
+            // warningLabel
+            // 
+            this.warningLabel.AutoSize = true;
+            this.warningLabel.Font = new System.Drawing.Font("Fira Code Light", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.warningLabel.ForeColor = System.Drawing.Color.Red;
+            this.warningLabel.Location = new System.Drawing.Point(9, 607);
+            this.warningLabel.Name = "warningLabel";
+            this.warningLabel.Size = new System.Drawing.Size(87, 15);
+            this.warningLabel.TabIndex = 13;
+            this.warningLabel.Text = "Komunikaty";
+            this.warningLabel.Visible = false;
+            // 
+            // resetButton
+            // 
+            this.resetButton.Font = new System.Drawing.Font("Fira Code Medium", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.resetButton.Location = new System.Drawing.Point(560, 495);
+            this.resetButton.Name = "resetButton";
+            this.resetButton.Size = new System.Drawing.Size(126, 54);
+            this.resetButton.TabIndex = 14;
+            this.resetButton.Text = "Przywróć";
+            this.resetButton.UseVisualStyleBackColor = true;
+            this.resetButton.Click += new System.EventHandler(this.resetButton_Click);
+            // 
+            // reconstructionButton
+            // 
+            this.reconstructionButton.Font = new System.Drawing.Font("Fira Code Medium", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.reconstructionButton.Location = new System.Drawing.Point(692, 495);
+            this.reconstructionButton.Name = "reconstructionButton";
+            this.reconstructionButton.Size = new System.Drawing.Size(126, 54);
+            this.reconstructionButton.TabIndex = 15;
+            this.reconstructionButton.Text = "Rekonstruuj";
+            this.reconstructionButton.UseVisualStyleBackColor = true;
+            this.reconstructionButton.Click += new System.EventHandler(this.reconstructionButton_Click);
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(842, 676);
+            this.Controls.Add(this.reconstructionButton);
+            this.Controls.Add(this.resetButton);
+            this.Controls.Add(this.warningLabel);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.onePointDeleteButton);
             this.Controls.Add(this.groupBox1);
@@ -165,7 +206,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "Reconstruct";
             this.Load += new System.EventHandler(this.Main_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -189,6 +230,9 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button onePointDeleteButton;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label warningLabel;
+        private System.Windows.Forms.Button resetButton;
+        private System.Windows.Forms.Button reconstructionButton;
     }
 }
 

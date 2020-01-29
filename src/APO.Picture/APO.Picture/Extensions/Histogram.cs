@@ -6,7 +6,7 @@ using Accord.Controls;
 using HistogramAccord = Accord.Statistics.Visualizations.Histogram;
 using Accord.Imaging;
 
-namespace APO.Picture.Extensions
+namespace APO.Picture.Segmentation
 {
     public class Histogram
     {

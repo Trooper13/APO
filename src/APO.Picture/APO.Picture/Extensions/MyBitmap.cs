@@ -11,7 +11,7 @@ using Mat = OpenCvSharp.Mat;
 using APO.Picture.Data;
 using System.Collections.Generic;
 
-namespace APO.Picture.Extensions
+namespace APO.Picture.Segmentation
 {
     public class MyBitmap
     {

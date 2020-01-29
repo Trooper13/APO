@@ -1,5 +1,5 @@
 ﻿using APO.Picture.Data;
-using APO.Picture.Extensions;
+using APO.Picture.Segmentation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

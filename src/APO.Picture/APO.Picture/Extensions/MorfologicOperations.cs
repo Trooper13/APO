@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Point = OpenCvSharp.Point;
 using Size = OpenCvSharp.Size;
 
-namespace APO.Picture.Extensions
+namespace APO.Picture.Segmentation
 {
     public class MorfologicOperations
     {

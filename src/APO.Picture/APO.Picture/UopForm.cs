@@ -1,4 +1,4 @@
-﻿using APO.Picture.Extensions;
+﻿using APO.Picture.Segmentation;
 using Emgu.CV;
 using Emgu.CV.Structure;
 using System;

@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 
-namespace APO.Picture.Extensions
+namespace APO.Picture.Segmentation
 {
     public class FastBitmap : IDisposable, ICloneable
     {
