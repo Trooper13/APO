@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APO.Picture", "APO.Picture\APO.Picture.csproj", "{CB0BE7C1-8BFB-412A-94CD-FEEDFC02D1BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APO.Segmentation", "APO.Segmentation\APO.Segmentation.csproj", "{6FB2D7E8-70E6-47AD-B195-001247B74642}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APO.MorfologicalReconstruction", "APO.Segmentation\APO.MorfologicalReconstruction.csproj", "{6FB2D7E8-70E6-47AD-B195-001247B74642}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
