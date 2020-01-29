@@ -1,24 +1,34 @@
 ﻿using APO.Picture.Segmentation;
 using APO.Segmentation.Extensions;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace APO.Segmentation
 {
+    /// <summary>
+    /// Główne okno programu
+    /// </summary>
     public partial class Main : Form
     {
+        /// <summary>
+        /// Scieżka obrazu
+        /// </summary>
         public string ImagePath { get; set; }
+
+        /// <summary>
+        /// Obraz źródłowy
+        /// </summary>
         public Bitmap CurrentImage { get; set; }
+
+        /// <summary>
+        /// Obraz wynikowy
+        /// </summary>
         public Bitmap ResultImage { get; set; }
-        public int CopyId { get; set; } = 0;
 
         public Main()
         {
@@ -29,34 +39,59 @@ namespace APO.Segmentation
             toolStripStatusLabel1.Font = new Font("Fira Code Medium", 12f, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
         }
 
-        public void onOpenFile(string file)
+        /// <summary>
+        /// Otwarcie obrazu
+        /// </summary>
+        /// <param name="file">Obraz</param>
+        public void OnOpenFile(string file)
         {
             ImagePath = file;
+            Text = "Reconstruct";
             Text += " - " + Path.GetFileName(file);
-            CurrentImage = (Bitmap)Image.FromFile(ImagePath);
+            CurrentImage = ConvertTo24bppRgb((Bitmap)Image.FromFile(ImagePath));
             pictureBox1.Image = CurrentImage;
             pictureBox1.SetPicturBoxSize(CurrentImage);
+            pointsListBox.Items.Clear();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Konwersja do obrazu 24-bitowego
+        /// </summary>
+        /// <param name="orig"></param>
+        /// <returns></returns>
+        public Bitmap ConvertTo24bppRgb(Bitmap orig)
         {
+            Bitmap clone = new Bitmap(orig.Width, orig.Height, PixelFormat.Format24bppRgb);
 
+            if (orig.PixelFormat != PixelFormat.Format24bppRgb)
+            {
+                using (Graphics gr = Graphics.FromImage(clone))
+                {
+                    gr.DrawImage(orig, new Rectangle(0, 0, clone.Width, clone.Height));
+                }
+            }
+            return clone;
         }
 
-        private void Main_Load(object sender, EventArgs e)
-        {
-        }
-
-        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
+        /// <summary>
+        /// Wyświetlenie informacji o pozycji myszy
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">mouse event</param>
+        private void ViewMousePosition(object sender, MouseEventArgs e)
         {
             if(pictureBox1.Image != null)
             {
                 toolStripStatusLabel1.Text = "X: " + (pictureBox1.Image.Width * e.X / pictureBox1.Width).ToString() + " | Y: " + (pictureBox1.Image.Height * e.Y / pictureBox1.Height).ToString();
-
             }
         }
 
-        private void openButton_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Wczytanie obrazu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OpenImage(object sender, EventArgs e)
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
@@ -65,14 +100,19 @@ namespace APO.Segmentation
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    onOpenFile(openFileDialog.FileName);
+                    OnOpenFile(openFileDialog.FileName);
                     Show();
                 }
-
                 Cursor = Cursors.Default;
             }
         }
-        private void pictureBox1_MouseDoubleClick(object sender, MouseEventArgs e)
+
+        /// <summary>
+        /// Dodanie markera do listy
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddMarkerToList(object sender, MouseEventArgs e)
         {
             if (pictureBox1.Image != null)
             {
@@ -83,7 +123,12 @@ namespace APO.Segmentation
             pictureBox1.Refresh();
         }
 
-        private void onePointDeleteButton_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Usuń zaznaczony punkt z listy
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnePointDeleteButton_Click(object sender, EventArgs e)
         {
             if (pointsListBox.Items.Count > 0 && pointsListBox.SelectedItems.Count > 0)
             {
@@ -100,7 +145,12 @@ namespace APO.Segmentation
             pictureBox1.Refresh();
         }
 
-        private void allPointsDeleteButton_Click_1(object sender, EventArgs e)
+        /// <summary>
+        /// Usuń wszystkie punkty z listy
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AllPointsDeleteButton_Click_1(object sender, EventArgs e)
         {
             if (pointsListBox.Items.Count > 0)
             {
@@ -116,13 +166,26 @@ namespace APO.Segmentation
             pictureBox1.Refresh();
         }
 
-        private void resetButton_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Resetuj obraz (wynikowy)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ResetButton_Click(object sender, EventArgs e)
         {
-            pictureBox2.Image = null;
-            pictureBox2.Size = new Size(400, 400);
+            if (pictureBox2.Image != null)
+            {
+                pictureBox2.Image = null;
+                pictureBox2.Size = new Size(400, 400);
+            }
         }
 
-        private void reconstructionButton_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Rekonstrukcja
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">event</param>
+        private void ReconstructionButton_Click(object sender, EventArgs e)
         {
             if (pointsListBox.Items.Count > 0)
             {
@@ -137,7 +200,12 @@ namespace APO.Segmentation
             }
         }
 
-        private void pictureBox1_Paint(object sender, PaintEventArgs e)
+        /// <summary>
+        /// Rysuj markery na obrazie
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">event myszki</param>
+        private void DrawMarkers(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
 
@@ -152,6 +220,51 @@ namespace APO.Segmentation
                 g.DrawLine(redPen, pt1, pt2);
                 g.DrawLine(redPen, pt3, pt4);
             }
+        }
+
+        /// <summary>
+        /// Zapisz obraz wynikowy
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            if (pictureBox2.Image != null)
+            {
+                using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+                {
+                    saveFileDialog.Filter = "bmp file(*.bmp)|*.bmp";
+                    saveFileDialog.RestoreDirectory = true;
+
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        pictureBox2.Image.Save(saveFileDialog.FileName, ImageFormat.Bmp);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Brak obrazu do zapisania!", "Komunikat", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        /// <summary>
+        /// Informacja o programie
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button2_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(
+                "APLKACJA PROJEKTOWA" +
+
+            "\nTemat: Zaimplementowanie operacji " +  
+            @"rekonstrukcji morfologicznej 
+            
+            Autor: Mateusz Mitura 16426
+            Prowadzący: dr hab. Korzyńska Anna
+            Algorytmy Przetwarzania Obrazów 2019
+            Inżynieria oprogramowania IZ07IO2", "Informacja o programie");
         }
     }
 }

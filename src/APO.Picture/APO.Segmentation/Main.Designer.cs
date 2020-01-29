@@ -28,9 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.openButton = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.saveButton = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pointsListBox = new System.Windows.Forms.CheckedListBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -41,6 +42,9 @@
             this.warningLabel = new System.Windows.Forms.Label();
             this.resetButton = new System.Windows.Forms.Button();
             this.reconstructionButton = new System.Windows.Forms.Button();
+            this.helpProvider1 = new System.Windows.Forms.HelpProvider();
+            this.helpProvider2 = new System.Windows.Forms.HelpProvider();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.statusStrip1.SuspendLayout();
@@ -56,7 +60,7 @@
             this.openButton.TabIndex = 0;
             this.openButton.Text = "Otwórz obraz...";
             this.openButton.UseVisualStyleBackColor = true;
-            this.openButton.Click += new System.EventHandler(this.openButton_Click);
+            this.openButton.Click += new System.EventHandler(this.OpenImage);
             // 
             // pictureBox2
             // 
@@ -69,15 +73,16 @@
             this.pictureBox2.TabIndex = 6;
             this.pictureBox2.TabStop = false;
             // 
-            // button2
+            // saveButton
             // 
-            this.button2.Font = new System.Drawing.Font("Fira Code Light", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button2.Location = new System.Drawing.Point(162, 15);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(137, 47);
-            this.button2.TabIndex = 7;
-            this.button2.Text = "Zapisz obraz...";
-            this.button2.UseVisualStyleBackColor = true;
+            this.saveButton.Font = new System.Drawing.Font("Fira Code Light", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.saveButton.Location = new System.Drawing.Point(162, 15);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(137, 47);
+            this.saveButton.TabIndex = 7;
+            this.saveButton.Text = "Zapisz obraz...";
+            this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // pictureBox1
             // 
@@ -89,9 +94,9 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
-            this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
-            this.pictureBox1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDoubleClick);
-            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
+            this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.DrawMarkers);
+            this.pictureBox1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.AddMarkerToList);
+            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ViewMousePosition);
             // 
             // pointsListBox
             // 
@@ -121,8 +126,9 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.groupBox1.Controls.Add(this.openButton);
             this.groupBox1.Controls.Add(this.button2);
+            this.groupBox1.Controls.Add(this.openButton);
+            this.groupBox1.Controls.Add(this.saveButton);
             this.groupBox1.Font = new System.Drawing.Font("Fira Code Light", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.groupBox1.Location = new System.Drawing.Point(12, 13);
@@ -141,7 +147,7 @@
             this.onePointDeleteButton.TabIndex = 11;
             this.onePointDeleteButton.Text = "Usuń zaznaczony";
             this.onePointDeleteButton.UseVisualStyleBackColor = true;
-            this.onePointDeleteButton.Click += new System.EventHandler(this.onePointDeleteButton_Click);
+            this.onePointDeleteButton.Click += new System.EventHandler(this.OnePointDeleteButton_Click);
             // 
             // button1
             // 
@@ -152,7 +158,7 @@
             this.button1.TabIndex = 12;
             this.button1.Text = "Usuń wszystkie";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.allPointsDeleteButton_Click_1);
+            this.button1.Click += new System.EventHandler(this.AllPointsDeleteButton_Click_1);
             // 
             // warningLabel
             // 
@@ -175,7 +181,7 @@
             this.resetButton.TabIndex = 14;
             this.resetButton.Text = "Przywróć";
             this.resetButton.UseVisualStyleBackColor = true;
-            this.resetButton.Click += new System.EventHandler(this.resetButton_Click);
+            this.resetButton.Click += new System.EventHandler(this.ResetButton_Click);
             // 
             // reconstructionButton
             // 
@@ -186,7 +192,18 @@
             this.reconstructionButton.TabIndex = 15;
             this.reconstructionButton.Text = "Rekonstruuj";
             this.reconstructionButton.UseVisualStyleBackColor = true;
-            this.reconstructionButton.Click += new System.EventHandler(this.reconstructionButton_Click);
+            this.reconstructionButton.Click += new System.EventHandler(this.ReconstructionButton_Click);
+            // 
+            // button2
+            // 
+            this.button2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button2.BackgroundImage")));
+            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button2.Location = new System.Drawing.Point(754, 19);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(46, 38);
+            this.button2.TabIndex = 8;
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // Main
             // 
@@ -207,7 +224,6 @@
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Reconstruct";
-            this.Load += new System.EventHandler(this.Main_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.statusStrip1.ResumeLayout(false);
@@ -222,7 +238,7 @@
 
         private System.Windows.Forms.Button openButton;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.CheckedListBox pointsListBox;
         private System.Windows.Forms.StatusStrip statusStrip1;
@@ -233,6 +249,9 @@
         private System.Windows.Forms.Label warningLabel;
         private System.Windows.Forms.Button resetButton;
         private System.Windows.Forms.Button reconstructionButton;
+        private System.Windows.Forms.HelpProvider helpProvider1;
+        private System.Windows.Forms.HelpProvider helpProvider2;
+        private System.Windows.Forms.Button button2;
     }
 }
 

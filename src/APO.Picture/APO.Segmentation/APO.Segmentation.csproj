@@ -47,7 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\Helper.cs" />
-    <Compile Include="Extensions\MyBitmap.cs" />
+    <Compile Include="Extensions\Algorytms.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>

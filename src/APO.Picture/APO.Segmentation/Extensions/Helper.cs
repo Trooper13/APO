@@ -47,7 +47,12 @@ namespace APO.Segmentation.Extensions
             }
         }
 
-        public static void Set2DtableToFalse(this bool[,] table, Bitmap bmp)
+        /// <summary>
+        /// Ustawienie wartości w tablicy na false (niesprawdzony)
+        /// </summary>
+        /// <param name="table">tablica</param>
+        /// <param name="bmp">obraz</param>
+        public static void SetIsCheckedTableToFalse(this bool[,] table, Bitmap bmp)
         {
             for (int i = 0; i < bmp.Width; i++)
             {
